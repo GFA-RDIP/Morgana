@@ -7,4 +7,6 @@ Named after the Arthurian sorceress Morgan le Fay, Fata Morgana or Morgana. Morg
 
 Fata Morgana is an unusual and complex form of mirage where an object is significantly distorted and rapidly changes. The mirage  can comprise of several inverted (upside down) and erect (right side up) that are stacked on top of one another.
 
-[Wikipedia - Fata Morgana (mirage)]: https://en.wikipedia.org/wiki/Fata_Morgana_(mirage)
+[Wikipedia 2016 - Fata Morgana (mirage)][1]
+
+[1]: https://en.wikipedia.org/wiki/Fata_Morgana_(mirage)
