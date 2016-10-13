@@ -7,7 +7,7 @@ father_cob,fathers country of birth (1=Aus, 2=UK, 3=Eur, 4=Mid EAst, 5=Africa, 6
 fh_food_allergy,family history of food allergy
 dog,dog owner
 numbersibs,number of siblings
-eczema_diagnosis_1y,eczema 1yr
+eczema_diagnosis_1y,eczema 1y
 egg_SPT_1y,egg skin prick test 1y
 peanut_SPT_1y,peanut skin prick test 1y
 sesame_SPT_1y,sesame skin prick test 1y
@@ -36,7 +36,7 @@ CellcountofPBMC_1y,cell count of pbmc 1y
 Granulocytesaliquots_1y,vials of granulocytes 1y
 NoofPlasmaTubes_1y,vials of plasma 1y
 GuthrieCardMade_4y,Guthrie card collected 1y
-BloodVolume_4y,volume of blood collected 4y
+bloodvolume_4y,volume of blood collected 4y
 nopbmctubes_4y,number of pbmc 4y
 CellcountofPBMC_4y,cell count of pbmc 4y
 Granulocytesaliquots_4y,vials of granulocytes 4y
