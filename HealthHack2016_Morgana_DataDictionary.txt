@@ -1,0 +1,146 @@
+Variable_name,Description
+id,study ID
+sex,participant sex (0=male, 1=Female)
+dob,date of birth
+mother_cob,mothers country of birth (1=Aus, 2=UK, 3=Eur, 4=Mid EAst, 5=Africa, 6=Sth America, 7=Nth America, 8=Oceania, 9=Sth Asia, 10=Far East)  
+father_cob,fathers country of birth (1=Aus, 2=UK, 3=Eur, 4=Mid EAst, 5=Africa, 6=Sth America, 7=Nth America, 8=Oceania, 9=Sth Asia, 10=Far East)  
+fh_food_allergy,family history of food allergy
+dog,dog owner
+numbersibs,number of siblings
+eczema_diagnosis_1y,eczema 1yr
+egg_SPT_1y,egg skin prick test 1y
+peanut_SPT_1y,peanut skin prick test 1y
+sesame_SPT_1y,sesame skin prick test 1y
+eggwh_ige_1y,egg white ige 1y
+peanut_ige_1y,peanut ige 1y
+sesame_ige_1y,sesame ige 1y
+egg_allergy_1y,egg allergy diagnosis 1y
+peanut_allergy_1y,peanut allergy diagnosis 1y
+sesame_allergy_1y,sesame allergy diagnosis 1y
+any_foodal_1y,any food allergy 1y
+eczema_diagnosis_4y,eczema diagnosis 4y
+egg_SPT_4y,egg skin prick test 4y
+peanut_SPT_4y,peanut skin prick test 4y
+sesame_SPT_4y,sesame skin prick test 4y
+totalige_4y,total ige 4y
+eggwh_ige_4y,egg white ige 4y
+peanut_ige_4y,peanut egg white ige 4y
+sesame_ige_4y,sesame ige 4y
+egg_allergy_4y,egg allergy diagnosis 4y
+peanut_allergy_4y,peanut allergy diagnosis 4y
+sesame_allergy_4y,sesame allergy diagnosis 4y
+any_foodal_4y,any food allergy 4y
+BloodVolume_1y,volume of blood collected 1y
+nopbmctubes_1y,number of pbmc 1y
+CellcountofPBMC_1y,cell count of pbmc 1y
+Granulocytesaliquots_1y,vials of granulocytes 1y
+NoofPlasmaTubes_1y,vials of plasma 1y
+GuthrieCardMade_4y,Guthrie card collected 1y
+BloodVolume_4y,volume of blood collected 4y
+nopbmctubes_4y,number of pbmc 4y
+CellcountofPBMC_4y,cell count of pbmc 4y
+Granulocytesaliquots_4y,vials of granulocytes 4y
+NoofPlasmaTubes_4y,vials of plasma 4y
+GuthrieCardMade_4y,Guthrie card collected 4y
+Mouth_swab_4y,Mouth swab collected 4y
+rs7927894_T,gene variant
+rs3091307_G,gene variant
+rs1800925_T,gene variant
+rs1295687_G,gene variant
+rs1295686_A,gene variant
+rs1295683_T,gene variant
+rs2243297_A,gene variant
+rs2243211_A,gene variant
+rs2243300_T,gene variant
+rs2243248_G,gene variant
+rs17118938_G,gene variant
+rs4912715_A,gene variant
+rs702401_A,gene variant
+rs778607_T,gene variant
+rs11167532_A,gene variant
+rs7721577_C,gene variant
+rs11574651_T,gene variant
+rs4914_G,gene variant
+rs2569190_A,gene variant
+rs7719581_C,gene variant
+rs7715716_G,gene variant
+rs1153090_A,gene variant
+rs6884703_C,gene variant
+rs1432975_T,gene variant
+rs7704889_A,gene variant
+rs4705047_T,gene variant
+rs7709676_T,gene variant
+rs1862330_T,gene variant
+rs6874765_A,gene variant
+rs1864997_G,gene variant
+rs17107473_A,gene variant
+rs17718041_T,gene variant
+rs7732713_T,gene variant
+rs7721995_T,gene variant
+rs6867877_A,gene variant
+rs1422589_G,gene variant
+rs10515597_A,gene variant
+rs1422587_A,gene variant
+rs10515601_T,gene variant
+rs17704205_T,gene variant
+rs1345689_G,gene variant
+rs13436856_T,gene variant
+rs6894548_A,gene variant
+rs4421091_G,gene variant
+rs13188824_T,gene variant
+rs4487480_A,gene variant
+rs1860933_A,gene variant
+rs9325057_A,gene variant
+rs7700964_T,gene variant
+rs17538716_A,gene variant
+rs10463393_C,gene variant
+rs7725292_A,gene variant
+rs10491340_G,gene variant
+rs6580514_G,gene variant
+rs6896204_G,gene variant
+rs6892970_C,gene variant
+rs17641748_A,gene variant
+rs12658421_A,gene variant
+rs10491343_T,gene variant
+rs7714069_G,gene variant
+rs17774892_G,gene variant
+rs1154729_T,gene variant
+rs7701442_T,gene variant
+rs2287773_T,gene variant
+rs9325061_G,gene variant
+rs13160662_A,gene variant
+rs4705054_T,gene variant
+rs2303067_A,gene variant
+rs3815741_G,gene variant
+rs17704764_G,gene variant
+rs9325071_G,gene variant
+rs9325072_T,gene variant
+rs9325073_C,gene variant
+rs11745768_A,gene variant
+rs17637711_T,gene variant
+rs17775739_T,gene variant
+rs13185274_A,gene variant
+rs7443321_T,gene variant
+rs4362936_T,gene variant
+rs4371740_T,gene variant
+rs1120680_G,gene variant
+rs17599675_C,gene variant
+rs6580526_T,gene variant
+rs10068913_C,gene variant
+FLG_combined,fillaggrin mutation
+A_1,HLA A allele 1
+A_2,HLA A allele2
+B_1,HLA B allele1
+B_2,HLA B allele2
+C_1,HLA C allele1
+C_2,HLA C allele2
+DPA1_1,HLA DPA1 allele1
+DPA1_2,HLA DPA1 allele2
+DPB1_1,HLA DPB1 allele1
+DPB1_2,HLA DPB1 allele2
+DQA1_1,HLA DQA1 allele1
+DQA1_2,HLA DQA1 allele2
+DQB1_1,HLA DQB1 allele1
+DQB1_2,HLA DQB1 allele2
+DRB1_1,HLA DRB1 allele1
+DRB1_2,HLA DRB1 allele2

@@ -15,7 +15,7 @@ There’s a severe need for an intuitive and interactive way to visualize relati
  
 We need to be able to examine this data in a myriad of scales and contexts, from a bird's eye view through to specific subgroups containing a half dozen specimens can inform this critical stage of research. 
 
-This project from the Murdoch Childrens Research Institute will utilize actual data from one of the worlds leading cohorts of paediatric food allergy, to develop a flexible, intuitive, visual solution to research data management.
+This project from the Murdoch Childrens Research Institute will utilize sample data from one of the worlds leading cohorts of paediatric food allergy, to develop a flexible, intuitive, visual solution to research data management.
 
 Ideally, the solution would consist of an easily queried database (preferably SQL-based), providing data to a web frontend. Several excellent libraries exist for this purpose (e.g. [d3.js][5], [plot.ly][4]), though as is to be expected, the devil is in the details - gluing the various components together into a cohesive, user-friendly whole is the real challenge for this project.
 
@@ -27,17 +27,20 @@ If you think you can help us develop this tool, you’ll be working on a project
 Named after the Arthurian sorceress Morgan le Fay, Fata Morgana or Morgana. Morgana is believed to have conjured the images of distant land or floating castles often seen in the Straits of Messina to lure unsuspecting sailors to their death. 
 
 Fata Morgana is an unusual and complex form of mirage where an object is significantly distorted and rapidly changes. The mirage can comprise of several inverted (upside down) and erect (right side up) that are stacked on top of one another. Fata Morgana are caused by rays of light being bent when passing through air layers of different temperatures in a steep thermal inversion where an atmospheric duct has formed.
-<p style="text-align: right">[Wikipedia 2016 - Fata Morgana (mirage)][1]
+[Wikipedia 2016 - Fata Morgana (mirage)][1]
 
 > <span style="color:darkorange">The analogy here is that Morgana the software will rapidly reformat and present complex almost indecyperable datasets in novel and informative ways so casual researchers are attracted to investigate further. </span>
 
 ## License
 Software devloped under this project is being released under a [GNU General Public License, version 3 (GPL-3.0)][2] license.
 
-Data and supportive documentation is released under a [Creative Commons Attribution 4.0 International (CC-BY)][3] license. 
+Supportive documentation is released under a [Creative Commons Attribution 4.0 International (CC-BY)][3] license. 
+
+Sample data released under a [ODC Open Database License (ODbL) version 1.0][6] license.
 
 [1]: https://en.wikipedia.org/wiki/Fata_Morgana_(mirage)
 [2]: https://opensource.org/licenses/GPL-3.0
 [3]: https://creativecommons.org/licenses/by/4.0/legalcode
 [4]: http://plot.ly/
 [5]: https://github.com/d3/d3
+[6]: http://opendatacommons.org/licenses/odbl/1.0/
