@@ -1,5 +1,14 @@
 # Morgana
+
 A data visualization tool to inspect complex datasets.
+
+## Problem Owners
+
+Dr. David Martino ([ResearchGate][8], [LinkedIn][9])
+
+Dr. Jennifer Koplin ([ResearchGate][10], [LinkedIn][11]) 
+
+Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13]) 
 
 ## HealthHack Melbourne 2016 Project Brief
 
@@ -31,12 +40,15 @@ Fata Morgana is an unusual and complex form of mirage where an object is signifi
 
 > <span style="color:darkorange">The analogy here is that Morgana the software will rapidly reformat and present complex almost indecyperable datasets in novel and informative ways so casual researchers are attracted to investigate further. </span>
 
-## License
+## Licenses
+
 Software devloped under this project is being released under a [GNU General Public License, version 3 (GPL-3.0)][2] license.
 
 Supportive documentation is released under a [Creative Commons Attribution 4.0 International (CC-BY)][3] license. 
 
-Sample data released under a [ODC Open Database License (ODbL) version 1.0][6] license.
+The sample dataset provided is released under a [ODC Open Database License (ODbL) version 1.0][6] license. Any rights in individual contents of the database are licensed under the [Database Contents License (DbCL) version 1.0][7].
+
+
 
 [1]: https://en.wikipedia.org/wiki/Fata_Morgana_(mirage)
 [2]: https://opensource.org/licenses/GPL-3.0
@@ -44,3 +56,10 @@ Sample data released under a [ODC Open Database License (ODbL) version 1.0][6] l
 [4]: http://plot.ly/
 [5]: https://github.com/d3/d3
 [6]: http://opendatacommons.org/licenses/odbl/1.0/
+[7]: http://opendatacommons.org/licenses/dbcl/1.0/
+[8]: https://www.researchgate.net/profile/David_Martino
+[9]: https://au.linkedin.com/in/david-martino-812ab5b7
+[10]: https://www.researchgate.net/profile/Jennifer_Koplin
+[11]: https://au.linkedin.com/in/jennifer-koplin-6a085695
+[12]: https://www.researchgate.net/profile/Simon_Cropper3
+[13]: https://au.linkedin.com/in/simonchristophercropper
