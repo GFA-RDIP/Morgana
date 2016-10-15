@@ -4,11 +4,16 @@ import csv
 from collections import defaultdict
 app = Flask(__name__)
 
+# To run locally (cross site scripting hack)
+from flask_cors import CORS
+cors = CORS(app)
+
 data = read_data('HealthHack2016_Morgana_Data_permuted.csv')
 
 # Variable, name
 with open('variables.csv') as f:
     variables = [row for row in csv.DictReader(f)]
+var_map = {r['variable']: r['name'] for r in variables}
 
 # Variable, Value, Name, Shortname
 with open('attributes.csv') as f:
@@ -40,7 +45,7 @@ def network(cols=cols, exclude=None, limit=None):
         limit = int(limit)
         cols = cols[:limit]
 
-    j = data_network(data, cols)
+    j = data_network(data, cols, [var_map[col] for col in cols])
     return jsonify(j)
 
 

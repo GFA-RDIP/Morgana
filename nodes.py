@@ -107,11 +107,12 @@ def network_layout(corrs, sizes, labels):
     return answer
 
 
-def data_network(df, cols):
+def data_network(df, cols, labels=None):
+    labels = labels or cols
     df = df[cols]
     corr = correlation_matrix(df)
     sizes = [size(df[col]) for col in cols]
-    network = network_layout(corr, sizes, cols)
+    network = network_layout(corr, sizes, labels)
     return network
 
 
