@@ -132,6 +132,15 @@ def data_tree(df, cols, labels, name="root"):
         return {'name':  name, 'size': len(df)}
 
 
+def decorate_id_tree(tree, id=0):
+    tree['id'] = id
+    id += 1
+    if tree.get('children'):
+        for child in tree['children']:
+            id = decorate_id_tree(child, id)
+    return id
+
+
 def _assign_attr_default(col, attr, vals):
     # Warning: Type hack
     return vals.get(int(float(attr)), "%s: %s" % (col, attr))

@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from nodes import data_network, read_data, data_tree, filter_binary_cols, sort_cols
+from nodes import data_network, read_data, data_tree, filter_binary_cols, sort_cols, decorate_id_tree
 import csv
 from collections import defaultdict
 app = Flask(__name__)
@@ -59,6 +59,7 @@ def sunburst(cols=cols):
         limit = int(limit)
         cols = cols[:limit]
     j = data_tree(data, cols, var_attr_name)
+    decorate_id_tree(j)
     return jsonify(j)
 
 if __name__ == "__main__":

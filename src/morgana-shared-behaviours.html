@@ -182,6 +182,14 @@
           "other": "#a173d1",
           "end": "#bbbbbb"
         };
+        var id_colors = [
+          "#5687d1",
+          "#7b615c",
+          "#de783b",
+          "#6ab975",
+          "#a173d1",
+          "#bbbbbb"
+        ];
         var vis = d3.select('.sunburst-container').append("svg:svg")
             .attr("width", width)
             .attr("height", height)
@@ -238,7 +246,7 @@
               .attr("display", function(d) { return d.depth ? null : "none"; })
               .attr("d", arc)
               .attr("fill-rule", "evenodd")
-              .style("fill", function(d) { return colors[d.name]; })
+              .style("fill", function(d) { return id_colors[d.id % id_colors.length]; })
               .style("opacity", 1)
               .on("mouseover", mouseover);
 
@@ -353,7 +361,7 @@
 
           entering.append("svg:polygon")
               .attr("points", breadcrumbPoints)
-              .style("fill", function(d) { return colors[d.name]; });
+              .style("fill", function(d) { return id_colors[d.id % id_colors.length]; });
 
           entering.append("svg:text")
               .attr("x", (b.w + b.t) / 2)
