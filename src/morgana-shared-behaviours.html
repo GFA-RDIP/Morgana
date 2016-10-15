@@ -206,7 +206,7 @@
         //   var json = buildHierarchy(csv);
         //   createVisualization(json);
         // });
-        fetch('localhost:5000/api/sunburst')
+        fetch('sunburst.json')
         .then( (resp) => { return resp.json()})
         .then( (tree) => {
           createVisualization(tree)
