@@ -1,0 +1,144 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" async href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" async href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="morgana-sunburst.html" />
+<link rel="import" href="morgana-network.html" />
+<dom-module id="morgana-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <style is="custom-style" include="zeitgeist-shared-styles iron-flex iron-flex-alignment">
+      :host {
+        --app-primary-color: #202020;
+    		--app-secondary-color: #757575;
+    		--app-accent-color: #172C50;
+        --paper-tabs-selection-bar-color: var(--app-accent-color);
+    		};
+    		--paper-tabs {
+    			color: var(--app-secondary-color);
+    		}
+    		--paper-tab {
+    			color: red;
+    		}
+
+        paper-tab[link] a {
+          /* These mixins (from iron-flex-layout) center the link text. */
+          /*@apply(--layout-horizontal);*/
+          /*@apply(--layout-center-center);*/
+          color: inherit;
+          text-decoration: none;
+          padding-left:10px;
+          padding-right:10px;
+          color: var(--app-secondary-color);
+        }
+    		.drawer-list {
+    		  margin: 0 20px;
+    		}
+
+    		.drawer-list a {
+          @apply(--layout-horizontal);
+          /*@apply(--layout-center-center);*/
+          color: inherit;
+          text-decoration: none;
+          padding-left:10px;
+          padding-right:10px;
+          /*line-height: 40px;*/
+          color: var(--app-secondary-color);
+    		}
+
+    		.drawer-list a.iron-selected {
+    		  color: black;
+    		  font-weight: bold;
+    		}
+
+        .content {
+          @apply(--layout-flex);
+          min-height:calc(100vh - 64px);
+          width:100%;
+          display:flex;
+        }
+
+    </style>
+    <paper-toast id="toast_notification">
+    </paper-toast>
+    <app-location route="{{route}}"
+    tail="{{subroute}}"
+    use-hash-as-path></app-location>
+
+    <!-- this app-route manages the top-level routes -->
+    <app-route
+        route="{{route}}"
+        pattern="/:view"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+    <iron-media-query query="max-width: 767px" query-matches="{{smallScreen}}"></iron-media-query>
+    <app-drawer-layout fullbleed force-narrow>
+        <app-drawer>
+            <iron-selector role="navigation" class="drawer-list" selected="about">
+                <template is="dom-repeat" items="{{menuItems}}">
+                    <a href="#/{{item.href}}">{{item.text}}</a>
+                </template>
+            </iron-selector>
+        </app-drawer>
+        <app-header-layout>
+            <app-header>
+                <app-toolbar>
+
+                    <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+                    <div main-title>Morgana</div>
+                      <paperToast></paperToast>
+                    <template is="dom-if" if="[[!smallScreen]]">
+                    <paper-tabs>
+                        <template is="dom-repeat" items="{{menuItems}}">
+                            <paper-tab link>
+                              <a class="link" href="#/{{item.href}}">{{item.text}}</a>
+                            </paper-tab>
+                        </template>
+                    </paper-tabs>
+
+                </template>
+
+
+                </app-toolbar>
+            </app-header>
+            <div class="content">
+              <iron-pages selected="{{routeData.view}}" attr-for-selected="name">
+                <morgana-sunburst name="sunburst">
+                </morgana-sunburst>
+                <morgana-network name="network">
+                </morgana-network>
+              </iron-pages>
+            </div>
+
+        </app-header-layout>
+    </app-drawer-layout>
+  </template>
+  <script>
+    Polymer({
+      is: 'morgana-app',
+      attached: function() {
+        this.async(function() {
+          if (!this.route.path) {
+            this.set('route.path', '/sunburst');
+          }
+        });
+      }
+    });
+  </script>
+</dom-module>

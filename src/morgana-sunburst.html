@@ -1,0 +1,94 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="morgana-shared-behaviours.html" />
+<!-- <script src="../bower_components/d3/d3.min.js"></script> -->
+<script src="//d3js.org/d3.v3.min.js"></script>
+
+<dom-module id="morgana-sunburst">
+  <template>
+    <style>
+      .container {
+        height: calc(100vh - 64px);
+        width: 100%;
+        background:#eee;
+        position: absolute;
+      }
+      :host {
+        display:block;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        /*font-weight: 400;
+        background-color: #fff;
+        width: 960px;
+        height: 700px;
+        margin-top: 10px;*/
+      }
+
+      #main {
+        float: left;
+        width: 750px;
+      }
+
+      #sidebar {
+        float: right;
+        width: 100px;
+      }
+
+      #sequence {
+        width: 600px;
+        height: 70px;
+      }
+
+      #legend {
+        padding: 10px 0 0 3px;
+      }
+
+      #sequence text, #legend text {
+        font-weight: 600;
+        fill: #fff;
+      }
+
+      #chart {
+        position: relative;
+      }
+
+      #chart path {
+        stroke: #fff;
+      }
+
+      #explanation {
+        position: absolute;
+        top: 260px;
+        left: 305px;
+        width: 140px;
+        text-align: center;
+        color: #666;
+        z-index: -1;
+      }
+
+      #percentage {
+        font-size: 2.5em;
+      }
+
+    </style>
+    <div class="container">
+      <div id="sequence">
+
+      </div>
+      <div class="sunburst-container">
+        <div id="explanation" style="visibility: hidden;">
+          <span id="percentage"></span><br/>
+          of visits begin with this sequence of pages
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'morgana-sunburst',
+      attached: function() {
+        Morgana.sunburst.generate()
+      }
+    });
+  </script>
+</dom-module>
