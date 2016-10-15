@@ -3,7 +3,7 @@
 <script>
 	window.Morgana = window.Morgana || {
     fetchArticles: (limit) => {
-      return fetch('http://localhost:8080/api/articles', {mode: 'cors'})
+      return fetch('http://localhost:5000/api/articles', {mode: 'cors'})
       .then((resp) => { return resp.json(); })
     },
   	generateGraph: (N, E) => {
@@ -177,7 +177,6 @@
         var b = {
           w: 150, h: 30, s: 3, t: 10
         };
-
         var vis = d3.select('.sunburst-container').append("svg:svg")
             .attr("width", width)
             .attr("height", height)
@@ -202,7 +201,7 @@
         //   var json = buildHierarchy(csv);
         //   createVisualization(json);
         // });
-        fetch('sunburst.json')
+        fetch('http://localhost:5000/api/sunburst', {mode: 'cors'})
         .then( (resp) => { return resp.json()})
         .then( (tree) => {
           createVisualization(tree)

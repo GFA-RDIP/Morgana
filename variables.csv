@@ -1,0 +1,145 @@
+variable,name
+id,study ID
+sex,sex
+dob,date of birth
+mother_cob,mothers country of birth
+father_cob,fathers country of birth
+fh_food_allergy,family history of food allergy
+dog,dog owner
+numbersibs,number of siblings
+eczema_diagnosis_1y,eczema diagnosis 1 year
+egg_SPT_1y,egg skin prick test 1 year
+peanut_SPT_1y,peanut skin prick test 1 year
+sesame_SPT_1y,sesame skin prick test 1 year
+eggwh_ige_1y,egg white ige 1 year
+peanut_ige_1y,peanut ige 1 year
+sesame_ige_1y,sesame ige 1 year
+egg_allergy_1y,egg allergy diagnosis 1 year
+peanut_allergy_1y,peanut allergy diagnosis 1 year
+sesame_allergy_1y,sesame allergy diagnosis 1 year
+any_foodal_1y,any food allergy 1 year
+eczema_diagnosis_4y,eczema diagnosis 4 years
+egg_SPT_4y,egg skin prick test 4 years
+peanut_SPT_4y,peanut skin prick test 4 years
+sesame_SPT_4y,sesame skin prick test 4 years
+totalige_4y,total ige 4 years
+eggwh_ige_4y,egg white ige 4 years
+peanut_ige_4y,peanut egg white ige 4 years
+sesame_ige_4y,sesame ige 4 years
+egg_allergy_4y,egg allergy diagnosis 4 years
+peanut_allergy_4y,peanut allergy diagnosis 4 years
+sesame_allergy_4y,sesame allergy diagnosis 4 years
+any_foodal_4y,any food allergy 4 years
+BloodVolume_1y,volume of blood collected 1 year
+nopbmctubes_1y,number of pbmc 1 year
+CellcountofPBMC_1y,cell count of pbmc 1 year
+Granulocytesaliquots_1y,vials of granulocytes 1 year
+NoofPlasmaTubes_1y,vials of plasma 1 year
+GuthrieCardMade_4y,Guthrie card collected 1 year
+bloodvolume_4y,volume of blood collected 4 years
+nopbmctubes_4y,number of pbmc 4 years
+CellcountofPBMC_4y,cell count of pbmc 4 years
+Granulocytesaliquots_4y,vials of granulocytes 4 years
+NoofPlasmaTubes_4y,vials of plasma 4 years
+Mouth_swab_4y,Mouth swab collected 4 years
+rs7927894_T,gene rs7927894_T
+rs3091307_G,gene rs3091307_G
+rs1800925_T,gene rs1800925_T
+rs1295687_G,gene rs1295687_G
+rs1295686_A,gene rs1295686_A
+rs1295683_T,gene rs1295683_T
+rs2243297_A,gene rs2243297_A
+rs2243211_A,gene rs2243211_A
+rs2243300_T,gene rs2243300_T
+rs2243248_G,gene rs2243248_G
+rs17118938_G,gene rs17118938_G
+rs4912715_A,gene rs4912715_A
+rs702401_A,gene rs702401_A
+rs778607_T,gene rs778607_T
+rs11167532_A,gene rs11167532_A
+rs7721577_C,gene rs7721577_C
+rs11574651_T,gene rs11574651_T
+rs4914_G,gene rs4914_G
+rs2569190_A,gene rs2569190_A
+rs7719581_C,gene rs7719581_C
+rs7715716_G,gene rs7715716_G
+rs1153090_A,gene rs1153090_A
+rs6884703_C,gene rs6884703_C
+rs1432975_T,gene rs1432975_T
+rs7704889_A,gene rs7704889_A
+rs4705047_T,gene rs4705047_T
+rs7709676_T,gene rs7709676_T
+rs1862330_T,gene rs1862330_T
+rs6874765_A,gene rs6874765_A
+rs1864997_G,gene rs1864997_G
+rs17107473_A,gene rs17107473_A
+rs17718041_T,gene rs17718041_T
+rs7732713_T,gene rs7732713_T
+rs7721995_T,gene rs7721995_T
+rs6867877_A,gene rs6867877_A
+rs1422589_G,gene rs1422589_G
+rs10515597_A,gene rs10515597_A
+rs1422587_A,gene rs1422587_A
+rs10515601_T,gene rs10515601_T
+rs17704205_T,gene rs17704205_T
+rs1345689_G,gene rs1345689_G
+rs13436856_T,gene rs13436856_T
+rs6894548_A,gene rs6894548_A
+rs4421091_G,gene rs4421091_G
+rs13188824_T,gene rs13188824_T
+rs4487480_A,gene rs4487480_A
+rs1860933_A,gene rs1860933_A
+rs9325057_A,gene rs9325057_A
+rs7700964_T,gene rs7700964_T
+rs17538716_A,gene rs17538716_A
+rs10463393_C,gene rs10463393_C
+rs7725292_A,gene rs7725292_A
+rs10491340_G,gene rs10491340_G
+rs6580514_G,gene rs6580514_G
+rs6896204_G,gene rs6896204_G
+rs6892970_C,gene rs6892970_C
+rs17641748_A,gene rs17641748_A
+rs12658421_A,gene rs12658421_A
+rs10491343_T,gene rs10491343_T
+rs7714069_G,gene rs7714069_G
+rs17774892_G,gene rs17774892_G
+rs1154729_T,gene rs1154729_T
+rs7701442_T,gene rs7701442_T
+rs2287773_T,gene rs2287773_T
+rs9325061_G,gene rs9325061_G
+rs13160662_A,gene rs13160662_A
+rs4705054_T,gene rs4705054_T
+rs2303067_A,gene rs2303067_A
+rs3815741_G,gene rs3815741_G
+rs17704764_G,gene rs17704764_G
+rs9325071_G,gene rs9325071_G
+rs9325072_T,gene rs9325072_T
+rs9325073_C,gene rs9325073_C
+rs11745768_A,gene rs11745768_A
+rs17637711_T,gene rs17637711_T
+rs17775739_T,gene rs17775739_T
+rs13185274_A,gene rs13185274_A
+rs7443321_T,gene rs7443321_T
+rs4362936_T,gene rs4362936_T
+rs4371740_T,gene rs4371740_T
+rs1120680_G,gene rs1120680_G
+rs17599675_C,gene rs17599675_C
+rs6580526_T,gene rs6580526_T
+rs10068913_C,gene rs10068913_C
+FLG_combined,fillaggrin mutation
+A_1,HLA A allele 1
+A_2,HLA A allele2
+B_1,HLA B allele1
+B_2,HLA B allele2
+C_1,HLA C allele1
+C_2,HLA C allele2
+DPA1_1,HLA DPA1 allele1
+DPA1_2,HLA DPA1 allele2
+DPB1_1,HLA DPB1 allele1
+DPB1_2,HLA DPB1 allele2
+DQA1_1,HLA DQA1 allele1
+DQA1_2,HLA DQA1 allele2
+DQB1_1,HLA DQB1 allele1
+DQB1_2,HLA DQB1 allele2
+DRB1_1,HLA DRB1 allele1
+DRB1_2,HLA DRB1 allele2

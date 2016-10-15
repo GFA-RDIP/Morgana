@@ -1,0 +1,245 @@
+variable,value,name,shortname
+sex,0,male,M
+sex,1,female,F
+mother_cob,1,Australia,Aus
+mother_cob,2,United Kingdom,UK
+mother_cob,3,Europe,Eur
+mother_cob,4,Middle East,Mid East
+mother_cob,5,Africa,Africa
+mother_cob,6,South America,Sth America
+mother_cob,7,North America,Nth America
+mother_cob,8,Oceania,Oceania
+mother_cob,9,South Asia,Sth Asia
+mother_cob,10,Far East,Far East
+father_cob,1,Australia,Aus
+father_cob,2,United Kingdom,UK
+father_cob,3,Europe,Eur
+father_cob,4,Middle East,Mid East
+father_cob,5,Africa,Africa
+father_cob,6,South America,Sth America
+father_cob,7,North America,Nth America
+father_cob,8,Oceania,Oceania
+father_cob,9,South Asia,Sth Asia
+father_cob,10,Far East,Far East
+fh_food_allergy,0,No Family History Food Allergy,No Family Allergy
+fh_food_allergy,1,Family History Food Allergy,Family Allergy
+dog,0,not dog owner,no dog
+dog,1,dog owner,dog
+eczema_diagnosis_1y,0,no eczema diagnosed 1 year,no eczema (1y)
+eczema_diagnosis_1y,1,eczema diagnosed 1 year,eczema (1y)
+egg_SPT_4y,0,no egg skin prick test 4 years,no egg SPT (4y)
+egg_SPT_4y,1,egg skin prick test 4 years,egg SPT (4y)
+peanut_SPT_4y,0,no peanut skin prick test 4 years,no peanut SPT 4y
+peanut_SPT_4y,1,peanut skin prick test 4 years,peanut SPT 4y
+sesame_SPT_4y,0,no sesame skin prick test 4 years,no sesame SPT 4y
+sesame_SPT_4y,1,sesame skin prick test 4 years,sesame SPT 4y
+egg_allergy_4y,0,no egg allergy diagnosis 4 years,no egg allergy 4y
+egg_allergy_4y,1,egg allergy diagnosis 4 years,egg allergy 4y
+peanut_allergy_4y,0,no peanut allergy diagnosis 4 years,no peanut allergy 4y
+peanut_allergy_4y,1,peanut allergy diagnosis 4 years,peanut allergy 4y
+sesame_allergy_4y,0,no sesame allergy diagnosis 4 years,no sesame allergy 4y
+sesame_allergy_4y,1,sesame allergy diagnosis 4 years,sesame allergy 4y
+any_foodal_4y,0,no any food allergy 4 years,no any foodal 4y
+any_foodal_4y,1,any food allergy 4 years,any foodal 4y
+rs7927894_T,0,no gene rs7927894_T,no rs7927894_T
+rs7927894_T,1,gene rs7927894_T,rs7927894_T
+rs3091307_G,0,no gene rs3091307_G,no rs3091307_G
+rs3091307_G,1,gene rs3091307_G,rs3091307_G
+rs1800925_T,0,no gene rs1800925_T,rs1800925_T
+rs1800925_T,1,gene rs1800925_T,rs1800925_T
+rs1295687_G,0,no gene rs1295687_G,rs1295687_G
+rs1295687_G,1,gene rs1295687_G,rs1295687_G
+rs1295686_A,0,no gene rs1295686_A,rs1295686_A
+rs1295686_A,1,gene rs1295686_A,rs1295686_A
+rs1295683_T,0,no gene rs1295683_T,rs1295683_T
+rs1295683_T,1,gene rs1295683_T,rs1295683_T
+rs2243297_A,0,no gene rs2243297_A,rs2243297_A
+rs2243297_A,1,gene rs2243297_A,rs2243297_A
+rs2243211_A,0,no gene rs2243211_A,rs2243211_A
+rs2243211_A,1,gene rs2243211_A,rs2243211_A
+rs2243300_T,0,no gene rs2243300_T,rs2243300_T
+rs2243300_T,1,gene rs2243300_T,rs2243300_T
+rs2243248_G,0,no gene rs2243248_G,rs2243248_G
+rs2243248_G,1,gene rs2243248_G,rs2243248_G
+rs17118938_G,0,no gene rs17118938_G,rs17118938_G
+rs17118938_G,1,gene rs17118938_G,rs17118938_G
+rs4912715_A,0,no gene rs4912715_A,rs4912715_A
+rs4912715_A,1,gene rs4912715_A,rs4912715_A
+rs702401_A,0,no gene rs702401_A,rs702401_A
+rs702401_A,1,gene rs702401_A,rs702401_A
+rs778607_T,0,no gene rs778607_T,rs778607_T
+rs778607_T,1,gene rs778607_T,rs778607_T
+rs11167532_A,0,no gene rs11167532_A,rs11167532_A
+rs11167532_A,1,gene rs11167532_A,rs11167532_A
+rs7721577_C,0,no gene rs7721577_C,rs7721577_C
+rs7721577_C,1,gene rs7721577_C,rs7721577_C
+rs11574651_T,0,no gene rs11574651_T,rs11574651_T
+rs11574651_T,1,gene rs11574651_T,rs11574651_T
+rs4914_G,0,no gene rs4914_G,rs4914_G
+rs4914_G,1,gene rs4914_G,rs4914_G
+rs2569190_A,0,no gene rs2569190_A,rs2569190_A
+rs2569190_A,1,gene rs2569190_A,rs2569190_A
+rs7719581_C,0,no gene rs7719581_C,no rs7719581_C
+rs7719581_C,1,gene rs7719581_C,rs7719581_C
+rs7715716_G,0,no gene rs7715716_G,no rs7715716_G
+rs7715716_G,1,gene rs7715716_G,rs7715716_G
+rs1153090_A,0,no gene rs1153090_A,no rs1153090_A
+rs1153090_A,1,gene rs1153090_A,rs1153090_A
+rs6884703_C,0,no gene rs6884703_C,no rs6884703_C
+rs6884703_C,1,gene rs6884703_C,rs6884703_C
+rs1432975_T,0,no gene rs1432975_T,no rs1432975_T
+rs1432975_T,1,gene rs1432975_T,rs1432975_T
+rs7704889_A,0,no gene rs7704889_A,no rs7704889_A
+rs7704889_A,1,gene rs7704889_A,rs7704889_A
+rs4705047_T,0,no gene rs4705047_T,no rs4705047_T
+rs4705047_T,1,gene rs4705047_T,rs4705047_T
+rs7709676_T,0,no gene rs7709676_T,no rs7709676_T
+rs7709676_T,1,gene rs7709676_T,rs7709676_T
+rs1862330_T,0,no gene rs1862330_T,no rs1862330_T
+rs1862330_T,1,gene rs1862330_T,rs1862330_T
+rs6874765_A,0,no gene rs6874765_A,no rs6874765_A
+rs6874765_A,1,gene rs6874765_A,rs6874765_A
+rs1864997_G,0,no gene rs1864997_G,no rs1864997_G
+rs1864997_G,1,gene rs1864997_G,rs1864997_G
+rs17107473_A,0,no gene rs17107473_A,no rs17107473_A
+rs17107473_A,1,gene rs17107473_A,rs17107473_A
+rs17718041_T,0,no gene rs17718041_T,no rs17718041_T
+rs17718041_T,1,gene rs17718041_T,rs17718041_T
+rs7732713_T,0,no gene rs7732713_T,no rs7732713_T
+rs7732713_T,1,gene rs7732713_T,rs7732713_T
+rs7721995_T,0,no gene rs7721995_T,no rs7721995_T
+rs7721995_T,1,gene rs7721995_T,rs7721995_T
+rs6867877_A,0,no gene rs6867877_A,no rs6867877_A
+rs6867877_A,1,gene rs6867877_A,rs6867877_A
+rs1422589_G,0,no gene rs1422589_G,no rs1422589_G
+rs1422589_G,1,gene rs1422589_G,rs1422589_G
+rs10515597_A,0,no gene rs10515597_A,no rs10515597_A
+rs10515597_A,1,gene rs10515597_A,rs10515597_A
+rs1422587_A,0,no gene rs1422587_A,no rs1422587_A
+rs1422587_A,1,gene rs1422587_A,rs1422587_A
+rs10515601_T,0,no gene rs10515601_T,no rs10515601_T
+rs10515601_T,1,gene rs10515601_T,rs10515601_T
+rs17704205_T,0,no gene rs17704205_T,no rs17704205_T
+rs17704205_T,1,gene rs17704205_T,rs17704205_T
+rs1345689_G,0,no gene rs1345689_G,no rs1345689_G
+rs1345689_G,1,gene rs1345689_G,rs1345689_G
+rs13436856_T,0,no gene rs13436856_T,no rs13436856_T
+rs13436856_T,1,gene rs13436856_T,rs13436856_T
+rs6894548_A,0,no gene rs6894548_A,no rs6894548_A
+rs6894548_A,1,gene rs6894548_A,rs6894548_A
+rs4421091_G,0,no gene rs4421091_G,no rs4421091_G
+rs4421091_G,1,gene rs4421091_G,rs4421091_G
+rs13188824_T,0,no gene rs13188824_T,no rs13188824_T
+rs13188824_T,1,gene rs13188824_T,rs13188824_T
+rs4487480_A,0,no gene rs4487480_A,no rs4487480_A
+rs4487480_A,1,gene rs4487480_A,rs4487480_A
+rs1860933_A,0,no gene rs1860933_A,no rs1860933_A
+rs1860933_A,1,gene rs1860933_A,rs1860933_A
+rs9325057_A,0,no gene rs9325057_A,no rs9325057_A
+rs9325057_A,1,gene rs9325057_A,rs9325057_A
+rs7700964_T,0,no gene rs7700964_T,no rs7700964_T
+rs7700964_T,1,gene rs7700964_T,rs7700964_T
+rs17538716_A,0,no gene rs17538716_A,no rs17538716_A
+rs17538716_A,1,gene rs17538716_A,rs17538716_A
+rs10463393_C,0,no gene rs10463393_C,no rs10463393_C
+rs10463393_C,1,gene rs10463393_C,rs10463393_C
+rs7725292_A,0,no gene rs7725292_A,no rs7725292_A
+rs7725292_A,1,gene rs7725292_A,rs7725292_A
+rs10491340_G,0,no gene rs10491340_G,no rs10491340_G
+rs10491340_G,1,gene rs10491340_G,rs10491340_G
+rs6580514_G,0,no gene rs6580514_G,no rs6580514_G
+rs6580514_G,1,gene rs6580514_G,rs6580514_G
+rs6896204_G,0,no gene rs6896204_G,no rs6896204_G
+rs6896204_G,1,gene rs6896204_G,rs6896204_G
+rs6892970_C,0,no gene rs6892970_C,no rs6892970_C
+rs6892970_C,1,gene rs6892970_C,rs6892970_C
+rs17641748_A,0,no gene rs17641748_A,no rs17641748_A
+rs17641748_A,1,gene rs17641748_A,rs17641748_A
+rs12658421_A,0,no gene rs12658421_A,no rs12658421_A
+rs12658421_A,1,gene rs12658421_A,rs12658421_A
+rs10491343_T,0,no gene rs10491343_T,no rs10491343_T
+rs10491343_T,1,gene rs10491343_T,rs10491343_T
+rs7714069_G,0,no gene rs7714069_G,no rs7714069_G
+rs7714069_G,1,gene rs7714069_G,rs7714069_G
+rs17774892_G,0,no gene rs17774892_G,no rs17774892_G
+rs17774892_G,1,gene rs17774892_G,rs17774892_G
+rs1154729_T,0,no gene rs1154729_T,no rs1154729_T
+rs1154729_T,1,gene rs1154729_T,rs1154729_T
+rs7701442_T,0,no gene rs7701442_T,no rs7701442_T
+rs7701442_T,1,gene rs7701442_T,rs7701442_T
+rs2287773_T,0,no gene rs2287773_T,no rs2287773_T
+rs2287773_T,1,gene rs2287773_T,rs2287773_T
+rs9325061_G,0,no gene rs9325061_G,no rs9325061_G
+rs9325061_G,1,gene rs9325061_G,rs9325061_G
+rs13160662_A,0,no gene rs13160662_A,no rs13160662_A
+rs13160662_A,1,gene rs13160662_A,rs13160662_A
+rs4705054_T,0,no gene rs4705054_T,no rs4705054_T
+rs4705054_T,1,gene rs4705054_T,rs4705054_T
+rs2303067_A,0,no gene rs2303067_A,no rs2303067_A
+rs2303067_A,1,gene rs2303067_A,rs2303067_A
+rs3815741_G,0,no gene rs3815741 G,no rs3815741 G
+rs3815741_G,1,gene rs3815741 G,rs3815741 G
+rs17704764_G,0,no gene rs17704764_G,no rs17704764_G
+rs17704764_G,1,gene rs17704764_G,rs17704764_G
+rs9325071_G,0,no gene rs9325071_G,no rs9325071_G
+rs9325071_G,1,gene rs9325071_G,rs9325071_G
+rs9325072_T,0,no gene rs9325072_T,no rs9325072_T
+rs9325072_T,1,gene rs9325072_T,rs9325072_T
+rs9325073_C,0,no gene rs9325073_C,no rs9325073_C
+rs9325073_C,1,gene rs9325073_C,rs9325073_C
+rs11745768_A,0,no gene rs11745768_A,no rs11745768_A
+rs11745768_A,1,gene rs11745768_A,rs11745768_A
+rs17637711_T,0,no gene rs17637711_T,no rs17637711_T
+rs17637711_T,1,gene rs17637711_T,rs17637711_T
+rs17775739_T,0,no gene rs17775739_T,no rs17775739_T
+rs17775739_T,1,gene rs17775739_T,rs17775739_T
+rs13185274_A,0,no gene rs13185274_A,no rs13185274_A
+rs13185274_A,1,gene rs13185274_A,rs13185274_A
+rs7443321_T,0,no gene rs7443321_T,no rs7443321_T
+rs7443321_T,1,gene rs7443321_T,rs7443321_T
+rs4362936_T,0,no gene rs4362936_T,no rs4362936_T
+rs4362936_T,1,gene rs4362936_T,rs4362936_T
+rs4371740_T,0,no gene rs4371740_T,no rs4371740_T
+rs4371740_T,1,gene rs4371740_T,rs4371740_T
+rs1120680_G,0,no gene rs1120680_G,no rs1120680_G
+rs1120680_G,1,gene rs1120680_G,rs1120680_G
+rs17599675_C,0,no gene rs17599675_C,no rs17599675_C
+rs17599675_C,1,gene rs17599675_C,rs17599675_C
+rs6580526_T,0,no gene rs6580526_T,no rs6580526_T
+rs6580526_T,1,gene rs6580526_T,rs6580526_T
+rs10068913_C,0,no gene rs10068913_C,no rs10068913_C
+rs10068913_C,1,gene rs10068913_C,rs10068913_C
+FLG_combined,1,fillaggrin mutation,FLG
+FLG_combined,0,no fillaggrin mutation,no FLG
+A_1,1,HLA A allele1,A_1
+A_2,1,HLA A allele2,A_2
+B_1,1,HLA B allele1,B_1
+B_2,1,HLA B allele2,B_2
+C_1,1,HLA C allele1,C_1
+C_2,1,HLA C allele2,C_2
+A_1,0,No HLA A allele1,No A_1
+A_2,0,No HLA A allele2,No A_2
+B_1,0,No HLA B allele1,No B_1
+B_2,0,No HLA B allele2,No B_2
+C_1,0,No HLA C allele1,No C_1
+C_2,0,No HLA C allele2,No C_2
+DPA1_1,1,HLA DPA1 allele1,DPA1_1
+DPA1_2,1,HLA DPA1 allele2,DPA1_2
+DPB1_1,1,HLA DPB1 allele1,DPB1_1
+DPB1_2,1,HLA DPB1 allele2,DPB1_2
+DQA1_1,1,HLA DQA1 allele1,DQA1_1
+DQA1_2,1,HLA DQA1 allele2,DQA1_2
+DQB1_1,1,HLA DQB1 allele1,DQB1_1
+DQB1_2,1,HLA DQB1 allele2,DQB1_2
+DRB1_1,1,HLA DRB1 allele1,DRB1_1
+DRB1_2,1,HLA DRB1 allele2,DRB1_2
+DPA1_1,0,No HLA DPA1 allele1,No DPA1_1
+DPA1_2,0,No HLA DPA1 allele2,No DPA1_2
+DPB1_1,0,No HLA DPB1 allele1,No DPB1_1
+DPB1_2,0,No HLA DPB1 allele2,No DPB1_2
+DQA1_1,0,No HLA DQA1 allele1,No DQA1_1
+DQA1_2,0,No HLA DQA1 allele2,No DQA1_2
+DQB1_1,0,No HLA DQB1 allele1,No DQB1_1
+DQB1_2,0,No HLA DQB1 allele2,No DQB1_2
+DRB1_1,0,No HLA DRB1 allele1,No DRB1_1
+DRB1_2,0,No HLA DRB1 allele2,No DRB1_2

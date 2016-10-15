@@ -1,8 +1,28 @@
 import pandas as pd
 import numpy as np
 from math import sqrt
-import json
-from scipy.stats import ttest_ind, chi2_contingency
+from scipy.stats import chi2_contingency
+
+
+def is_binary(col):
+    try:
+        valid = col[~np.isnan(col)]
+        values = set(valid)
+        return len(values) == 2
+    except TypeError:
+        return False
+
+
+def filter_binary_cols(df):
+    cols = [col for col in df.columns if is_binary(df[col])]
+    return cols
+
+
+def sort_cols(df, cols):
+    # Sort columns by number of non-NA entries
+    def size(col):
+        return sum(~np.isnan(df[col]))
+    return sorted(cols, key=size, reverse=True)
 
 
 def read_data(path):
@@ -24,7 +44,7 @@ def contingency_table(x, y):
     for xv, yv in zip(x, y):
         xi = xvals.index(xv)
         yi = yvals.index(yv)
-        contingency[xi][yi] += 1
+        contingency[yi][xi] += 1
     return contingency
 
 
@@ -87,15 +107,16 @@ def network_layout(corrs, sizes, labels):
     return answer
 
 
-def data_network(df, cols):
+def data_network(df, cols, labels=None):
+    labels = labels or cols
     df = df[cols]
     corr = correlation_matrix(df)
     sizes = [size(df[col]) for col in cols]
-    network = network_layout(corr, sizes, cols)
+    network = network_layout(corr, sizes, labels)
     return network
 
 
-def data_tree(df, cols, name="root"):
+def data_tree(df, cols, labels, name="root"):
     "Only use on categorical data"
     if cols:
         col = cols[0]
@@ -104,9 +125,22 @@ def data_tree(df, cols, name="root"):
         vals = set(v for v in df[col] if not np.isnan(v))
         children = []
         for val in vals:
-            # %i is a massive hack
             children.append(
-                data_tree(df[df[col] == val], rest, "%s: %i" % (col, val)))
+                data_tree(df[df[col] == val], rest, labels, labels[col][val]))
         return {'name': name, 'children': children}
     else:
         return {'name':  name, 'size': len(df)}
+
+
+def decorate_id_tree(tree, id=0):
+    tree['id'] = id
+    id += 1
+    if tree.get('children'):
+        for child in tree['children']:
+            id = decorate_id_tree(child, id)
+    return id
+
+
+def _assign_attr_default(col, attr, vals):
+    # Warning: Type hack
+    return vals.get(int(float(attr)), "%s: %s" % (col, attr))
