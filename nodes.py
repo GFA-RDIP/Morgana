@@ -93,3 +93,20 @@ def data_network(df, cols):
     sizes = [size(df[col]) for col in cols]
     network = network_layout(corr, sizes, cols)
     return network
+
+
+def data_tree(df, cols, name="root"):
+    "Only use on categorical data"
+    if cols:
+        col = cols[0]
+        rest = cols[1:]
+
+        vals = set(v for v in df[col] if not np.isnan(v))
+        children = []
+        for val in vals:
+            # %i is a massive hack
+            children.append(
+                data_tree(df[df[col] == val], rest, "%s: %i" % (col, val)))
+        return {'name': name, 'children': children}
+    else:
+        return {'name':  name, 'size': len(df)}
