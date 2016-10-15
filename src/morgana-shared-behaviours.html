@@ -2,7 +2,7 @@
 <script>
 	window.Morgana = window.Morgana || {
     fetchArticles: (limit) => {
-      return fetch('http://localhost:8080/api/articles', {mode: 'cors'})
+      return fetch('http://localhost:5000/api/articles', {mode: 'cors'})
       .then((resp) => { return resp.json(); })
     },
   	generateGraph: (N, E) => {
