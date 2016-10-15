@@ -86,12 +86,9 @@ def network_layout(corrs, sizes):
     return answer
 
 
-def data_to_json(df, cols):
-    df = data[cols]
+def data_network(df, cols):
+    df = df[cols]
     corr = correlation_matrix(df)
-    sizes = [size(data[col]) for col in cols]
+    sizes = [size(df[col]) for col in cols]
     network = network_layout(corr, sizes)
-    return json.dumps(network)
-
-data = read_data('HealthHack2016_Morgana_Data_permuted.csv')
-j = data_to_json(data, ['fh_food_allergy', 'dog', 'peanut_allergy_1y'])
+    return network
