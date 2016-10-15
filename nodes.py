@@ -67,11 +67,12 @@ def size(v):
     return sum(v) / len(v)
 
 
-def network_layout(corrs, sizes):
+def network_layout(corrs, sizes, labels):
     answer = {'nodes': [], 'edges': []}
     for id, size in enumerate(sizes):
-        answer['nodes'].append({'id': 'n%s' % id, 'size': size})
-
+        answer['nodes'].append({'id': 'n%s' % id,
+                                'size': size,
+                                'label': labels[id]})
     counter = 0
     for i, row in enumerate(corrs):
         for j, corr in enumerate(row):
@@ -90,5 +91,5 @@ def data_network(df, cols):
     df = df[cols]
     corr = correlation_matrix(df)
     sizes = [size(df[col]) for col in cols]
-    network = network_layout(corr, sizes)
+    network = network_layout(corr, sizes, cols)
     return network

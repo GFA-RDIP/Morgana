@@ -5,7 +5,7 @@ app = Flask(__name__)
 data = read_data('HealthHack2016_Morgana_Data_permuted.csv')
 
 
-@app.route("/")
+@app.route("/api/network")
 def main():
     j = data_network(data, ['fh_food_allergy', 'dog', 'peanut_allergy_1y'])
     return jsonify(j)
