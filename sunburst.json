@@ -1,0 +1,126 @@
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "name": "eczema_diagnosis_4y: 0", 
+                  "size": 1079
+                }, 
+                {
+                  "name": "eczema_diagnosis_4y: 1", 
+                  "size": 409
+                }
+              ], 
+              "name": "peanut_allergy_1y: 0"
+            }, 
+            {
+              "children": [
+                {
+                  "name": "eczema_diagnosis_4y: 0", 
+                  "size": 21
+                }, 
+                {
+                  "name": "eczema_diagnosis_4y: 1", 
+                  "size": 60
+                }
+              ], 
+              "name": "peanut_allergy_1y: 1"
+            }
+          ], 
+          "name": "dog: 0"
+        }, 
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "name": "eczema_diagnosis_4y: 0", 
+                  "size": 592
+                }, 
+                {
+                  "name": "eczema_diagnosis_4y: 1", 
+                  "size": 165
+                }
+              ], 
+              "name": "peanut_allergy_1y: 0"
+            }, 
+            {
+              "children": [
+                {
+                  "name": "eczema_diagnosis_4y: 0", 
+                  "size": 6
+                }, 
+                {
+                  "name": "eczema_diagnosis_4y: 1", 
+                  "size": 17
+                }
+              ], 
+              "name": "peanut_allergy_1y: 1"
+            }
+          ], 
+          "name": "dog: 1"
+        }
+      ], 
+      "name": "fh_food_allergy: 0"
+    }, 
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "name": "eczema_diagnosis_4y: 0", 
+                  "size": 160
+                }, 
+                {
+                  "name": "eczema_diagnosis_4y: 1", 
+                  "size": 68
+                }
+              ], 
+              "name": "peanut_allergy_1y: 0"
+            }, 
+            {
+              "children": [
+                {
+                  "name": "eczema_diagnosis_4y: 0", 
+                  "size": 3
+                }, 
+                {
+                  "name": "eczema_diagnosis_4y: 1", 
+                  "size": 5
+                }
+              ], 
+              "name": "peanut_allergy_1y: 1"
+            }
+          ], 
+          "name": "dog: 0"
+        }, 
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "name": "eczema_diagnosis_4y: 0", 
+                  "size": 60
+                }, 
+                {
+                  "name": "eczema_diagnosis_4y: 1", 
+                  "size": 32
+                }
+              ], 
+              "name": "peanut_allergy_1y: 0"
+            }
+          ], 
+          "name": "dog: 1"
+        }
+      ], 
+      "name": "fh_food_allergy: 1"
+    }
+  ], 
+  "name": "root"
+}
