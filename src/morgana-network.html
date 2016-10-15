@@ -43,7 +43,7 @@
                 autoRescale: true
             }
         });
-        setTimeout(function() {this.s.refresh(); this.s.refresh()}.bind(this), 500);
+        setTimeout(function() {this.s.refresh(); this.s.refresh()}.bind(this), 1000);
         Morgana.applyGraphStyles(this.s);
         Morgana.applyGraphInteractions(this.s);
         // Morgana.fetchSpecimens(1000)
@@ -80,6 +80,7 @@
         // .then( () => {
         //     var fa = Morgana.applyForceLink(this.s);
         // })
+        var fa = Morgana.applyForceLink(this.s);
       }
     });
   </script>

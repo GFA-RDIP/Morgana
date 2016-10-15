@@ -132,6 +132,28 @@
   <script>
     Polymer({
       is: 'morgana-app',
+      properties: {
+        menuItems: {
+          type: Object,
+          value: function() {
+            return [
+              {"text": "Sunburst", href: "sunburst"},
+              {"text": "Network", href: "network"}
+            ]
+          }
+        }
+      },
+      listeners: {
+        'morgana-fetch-network': 'fetchNetwork'
+      },
+      fetchNetwork: function(e) {
+        var variables = e.detail.ancestors;
+        fetch('/api/network', {method: 'POST', data: e.detail})
+        .then(resp => resp.json())
+        .then(function(network) {
+          Morgana.network.display(network).bind(this.$$('morgana-network'))
+        }.bind(this))
+      }
       attached: function() {
         this.async(function() {
           if (!this.route.path) {
