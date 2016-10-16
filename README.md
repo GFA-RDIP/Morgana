@@ -8,7 +8,7 @@ Dr. David Martino ([ResearchGate][8], [LinkedIn][9])
 
 Dr. Jennifer Koplin ([ResearchGate][10], [LinkedIn][11]) 
 
-Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13]
+Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13])
  
 ## Project Team
 
@@ -41,7 +41,9 @@ If you think you can help us develop this tool, you’ll be working on a project
 
 ## Project development
 
-Opportunities are being investigated on how to take a segment of the cohort data and create a network diagram based on the abundance and association of participant attributes. The core element of this visualisation is a network diagram that changes based on the segment of the population cohort selected.
+Opportunities are being investigated on how to take a segment of the cohort data and represent relationships in the dataset for the selected participants in a natural and interactive way.
+
+The initial cohort segment is selected using a dynamic sunburst diagram, which feeds a subset of the original matrix to either a table or network diagram that visually presents abundance and relationships between major attributes known about the participants. The tabulated view will provide the ability to export the list of selected participants, the filter field values and the values identified as being significant by the network analysis.
 
 ## Etymology of name
 
