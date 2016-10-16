@@ -93,7 +93,7 @@ def sunburst(cols=cols):
 @app.route("/api/patient", methods=['GET', 'POST'])
 def patient():
     selector = request.get_json(force=True)
-    out_data = data[['id'] + selector.keys())]
+    out_data = data[['id'] + selector.keys()]
 
     for var, val in selector.items():
         if val != "*":
