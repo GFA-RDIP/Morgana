@@ -8,8 +8,8 @@ Dr. David Martino ([ResearchGate][8], [LinkedIn][9])
 
 Dr. Jennifer Koplin ([ResearchGate][10], [LinkedIn][11]) 
 
-Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13 
-
+Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13]
+ 
 ## Project Team
 
 Edward Ross (back end)
