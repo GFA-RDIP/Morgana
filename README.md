@@ -8,7 +8,15 @@ Dr. David Martino ([ResearchGate][8], [LinkedIn][9])
 
 Dr. Jennifer Koplin ([ResearchGate][10], [LinkedIn][11]) 
 
-Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13]) 
+Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13 
+
+## Project Team
+
+Edward Ross (back end)
+
+Jagdish Sawlani (analysis)
+
+Thanks for the assistance provided by the mentors Nicholas Roberts, Jarny Choi and Tung van Truong in the development of the backend and analysis.
 
 ## HealthHack Melbourne 2016 Project Brief
 
@@ -30,6 +38,9 @@ Ideally, the solution would consist of an easily queried database (preferably SQ
 
 If you think you can help us develop this tool, you’ll be working on a project that will make research teams more effective in combating life-threatening disease.
 
+## Project development
+
+Opportunities are being investigated on how to take a segment of the cohort data and create a network diagram based on the abundance and association of participant attributes. The core element of this visualisation is a network diagram that changes based on the segment of the population cohort selected.
 
 ## Etymology of name
 
