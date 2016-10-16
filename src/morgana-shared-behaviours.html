@@ -1,4 +1,5 @@
 <script src="/bower_components/underscore/underscore-min.js"></script>
+<script src="../bower_components/randomcolor/randomColor.js"></script>
 <script>
 	window.Morgana = window.Morgana || {
     fetchArticles: (limit) => {
@@ -166,30 +167,16 @@
   	},
     sunburst: {
       generate: function() {
+				console.log(b);
         var totalSize = 0;
         var width = 640;
         var height = 480;
+				console.log(document.querySelector('.container').clientWidth)
         var radius = Math.min(width, height) / 2;
         var color = d3.scale.category20c();
         var b = {
-          w: 75, h: 30, s: 3, t: 10
+          w: 150, h: 30, s: 3, t: 10
         };
-        var colors = {
-          "home": "#5687d1",
-          "product": "#7b615c",
-          "search": "#de783b",
-          "account": "#6ab975",
-          "other": "#a173d1",
-          "end": "#bbbbbb"
-        };
-        var id_colors = [
-          "#5687d1",
-          "#7b615c",
-          "#de783b",
-          "#6ab975",
-          "#a173d1",
-          "#bbbbbb"
-        ];
         var vis = d3.select('.sunburst-container').append("svg:svg")
             .attr("width", width)
             .attr("height", height)
@@ -220,9 +207,22 @@
           createVisualization(tree)
         })
 
+				function fetchNetwork(d) {
+					console.log(d);
+					console.log(getAncestors(d))
+					// Use the standard CustomEventAPI, not Polymer sugaring
+					this.dispatchEvent(new CustomEvent('morgana-fetch-network',
+						{detail: {ancestors: getAncestors(d)}}))
+				}
         // Main function to draw and set up the visualization, once we have the data.
         function createVisualization(json) {
-
+					function computeStringWidth(string, font) {
+						var container = document.createElement('span');
+						container.innerHTML = string;
+						container.style.fontFamily = font;
+						var width = container.clientWidth;
+						return width;
+					}
           // Basic setup of page elements.
           initializeBreadcrumbTrail();
           drawLegend();
@@ -240,19 +240,27 @@
               return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
               });
 
+					this.colors = {"root": "#fff"}
+					nodes.map(function(node) {
+						this.colors[node.name] = randomColor({"luminosity": "bright", hue: "blue"});
+						node['string_width'] = computeStringWidth(node.name, 'Open-Sans');
+					})
+
           var path = vis.data([json]).selectAll("path")
               .data(nodes)
               .enter().append("svg:path")
               .attr("display", function(d) { return d.depth ? null : "none"; })
               .attr("d", arc)
+							.attr('name', function(d) { return d.name })
               .attr("fill-rule", "evenodd")
-              .style("fill", function(d) { return id_colors[d.id % id_colors.length]; })
+              .style("fill", function(d) { return this.colors[d.name]; }.bind(this))
               .style("opacity", 1)
               .on("mouseover", mouseover);
 
           // Add the mouseleave handler to the bounding circle.
           d3.select("#container").on("mouseleave", mouseleave);
-
+					d3.selectAll("path")
+					.on("click", fetchNetwork);
           // Get total size of the tree = value of root node from partition.
           totalSize = path.node().__data__.value;
          };
@@ -269,8 +277,8 @@
           d3.select("#percentage")
               .text(percentageString);
 
-          d3.select("#explanation")
-              .style("visibility", "");
+          // d3.select("#explanation")
+          //     .style("visibility", "");
 
           var sequenceArray = getAncestors(d);
           updateBreadcrumbs(sequenceArray, percentageString);
@@ -304,10 +312,11 @@
               .style("opacity", 1)
               .each("end", function() {
                       d3.select(this).on("mouseover", mouseover);
+                      d3.select(this).on("click", fetchNetwork);
                     });
 
-          d3.select("#explanation")
-              .style("visibility", "hidden");
+          // d3.select("#explanation")
+          //     .style("visibility", "hidden");
         }
 
         // Given a node in a partition layout, return an array of all of its ancestor
@@ -338,6 +347,7 @@
         function breadcrumbPoints(d, i) {
           var points = [];
           points.push("0,0");
+					console.log(b)
           points.push(b.w + ",0");
           points.push(b.w + b.t + "," + (b.h / 2));
           points.push(b.w + "," + b.h);
@@ -345,6 +355,7 @@
           if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
             points.push(b.t + "," + (b.h / 2));
           }
+					console.log(points);
           return points.join(" ");
         }
 
@@ -361,7 +372,7 @@
 
           entering.append("svg:polygon")
               .attr("points", breadcrumbPoints)
-              .style("fill", function(d) { return id_colors[d.id % id_colors.length]; });
+              .style("fill", function(d) { return this.colors[d.name]; }.bind(this));
 
           entering.append("svg:text")
               .attr("x", (b.w + b.t) / 2)
@@ -401,10 +412,10 @@
 
           var legend = d3.select("#legend").append("svg:svg")
               .attr("width", li.w)
-              .attr("height", d3.keys(colors).length * (li.h + li.s));
+              .attr("height", d3.keys(this.colors).length * (li.h + li.s));
 
           var g = legend.selectAll("g")
-              .data(d3.entries(colors))
+              .data(d3.entries(this.colors))
               .enter().append("svg:g")
               .attr("transform", function(d, i) {
                       return "translate(0," + i * (li.h + li.s) + ")";
@@ -479,6 +490,12 @@
         };
 
       }
-    }
+    },
+		network: {
+			display: function(network_object) {
+				console.log(this);
+				console.log(network_object);
+			}
+		}
   }
 </script>

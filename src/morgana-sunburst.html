@@ -12,6 +12,13 @@
         background:#eee;
         position: absolute;
       }
+      .sunburst-container {
+        display:flex;
+        width:50%;
+        justify-content:center;
+        align-content:center;
+        align-items:center;
+      }
       :host {
         display:block;
         font-family: 'Open Sans', sans-serif;
@@ -57,12 +64,14 @@
 
       #explanation {
         position: absolute;
-        top: 260px;
-        left: 305px;
-        width: 140px;
+        /*top:40%;*/
+        /*left:40%;*/
+        /*top: 260px;*/
+        /*left: 305px;*/
+        /*width: 140px;*/
         text-align: center;
         color: #666;
-        z-index: -1;
+        /*z-index: -1;*/
       }
 
       #percentage {
@@ -75,9 +84,8 @@
 
       </div>
       <div class="sunburst-container">
-        <div id="explanation" style="visibility: hidden;">
-          <span id="percentage"></span><br/>
-          of visits begin with this sequence of pages
+        <div id="explanation">
+          <span id="percentage"></span>
         </div>
       </div>
     </div>
