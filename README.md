@@ -13,10 +13,11 @@ Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13
 ## Project Team
 
 Edward Ross (back end)
+Nicholas Roberts (front end, network analysis, project design)
 
-Jagdish Sawlani (analysis)
+Thanks for the assistance provided by the mentors Jarny Choi and Tung van Truong in the development of the backend, analysis and design.
 
-Thanks for the assistance provided by the mentors Nicholas Roberts, Jarny Choi and Tung van Truong in the development of the backend and analysis.
+Thanks also to Jagdish Sawlani for early input into the preperation of the data for analysis.
 
 ## HealthHack Melbourne 2016 Project Brief
 
