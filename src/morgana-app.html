@@ -138,22 +138,35 @@
           value: function() {
             return [
               {"text": "Sunburst", href: "sunburst"},
-              {"text": "Network", href: "network"}
+              {"text": "Network", href: "network"},
+              {"text": "Grid", href: "grid"}
             ]
           }
         }
       },
       listeners: {
-        'morgana-fetch-network': 'fetchNetwork'
+        'morgana-fetch-network': 'fetchNetwork',
+        'morgana-fetch-patient-grid': 'fetchPatientGrid'
+      },
+      fetchPatientGrid: function(e) {
+        console.log(e);
+        fetch('http://localhost:5000/api/patients')
+        .then(resp => resp.json())
+        .then(function(patients) {
+          Morgana.grid.display.bind(this.$$('morgana-patient-grid'))(patients)
+        }.bind(this))
+        .then(() => this.set('route.path', '/grid') )
       },
       fetchNetwork: function(e) {
+        console.log(e)
         var variables = e.detail.ancestors;
-        fetch('/api/network', {method: 'POST', data: e.detail})
+        fetch('http://localhost:5000/api/network')
         .then(resp => resp.json())
         .then(function(network) {
-          Morgana.network.display(network).bind(this.$$('morgana-network'))
+          Morgana.network.display.bind(this.$$('morgana-network'))(network)
         }.bind(this))
-      }
+        .then(() => this.set('route.path', '/network') )
+      },
       attached: function() {
         this.async(function() {
           if (!this.route.path) {

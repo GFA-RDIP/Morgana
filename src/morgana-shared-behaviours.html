@@ -148,7 +148,7 @@
   		var fa = sigma.layouts.configForceLink(sigmaInstance, {
   			worker: true,
   			autoStop: true,
-  			background: false,
+  			background: true,
   			scaleRatio: 10,
   			gravity: 5,
   			easing: 'cubicInOut'
@@ -212,7 +212,7 @@
 					console.log(getAncestors(d))
 					// Use the standard CustomEventAPI, not Polymer sugaring
 					this.dispatchEvent(new CustomEvent('morgana-fetch-network',
-						{detail: {ancestors: getAncestors(d)}}))
+						{detail: {ancestors: getAncestors(d)}, bubbles: true}))
 				}
         // Main function to draw and set up the visualization, once we have the data.
         function createVisualization(json) {
@@ -492,9 +492,33 @@
       }
     },
 		network: {
+			community: function(sigma_inst) {
+				var louvainInstance = sigma.plugins.louvain(sigma_inst.graph, {
+				  setter: function(communityId) { this.community = communityId; }
+				});
+			},
 			display: function(network_object) {
-				console.log(this);
-				console.log(network_object);
+				var random_colors = {}
+				network_object.nodes.map((node) => {
+					node.x = Math.random() * 100;
+					node.y = Math.random() * 100;
+					node.color = randomColor();
+					node.size = Math.pow(10, node.size + 2)
+				})
+				this.s.graph.clear();
+				this.s.graph.read(network_object);
+				setTimeout(function() {
+					this.s.refresh(); this.s.refresh();
+					Morgana.network.community(this.s)
+					this.s.graph.nodes().map((node) => {
+						if (!(node.community in random_colors)) {
+							random_colors[node.community] = randomColor({luminosity: "bright", hue: "blue"});
+						}
+						node.color = random_colors[node.community];
+					})
+					var fa = Morgana.applyForceLink(this.s)
+				}.bind(this), 500);
+
 			}
 		}
   }
