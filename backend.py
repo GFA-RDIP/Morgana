@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from nodes import data_network, read_data, data_tree, filter_binary_cols, sort_cols, decorate_id_tree
+from nodes import data_network, read_data, data_tree, filter_categorical_cols, sort_cols, decorate_id_tree
 import csv
 from collections import defaultdict
 app = Flask(__name__)
@@ -24,20 +24,24 @@ var_attr_name = defaultdict(dict)
 for row in attributes:
     variable = row['variable']
     name = row['name']
-    attribute = float(row['value'])
+    # Hack to deal with pandas type conversion
+    try:
+        attribute = float(row['value'])
+    except (TypeError, ValueError):
+        pass
     var_attr_name[variable][attribute] = name
 var_attr_name = dict(var_attr_name)
 
 
 # Filter down to the good columns
-cols = filter_binary_cols(data)
+cols = filter_categorical_cols(data)
 cols = [col for col in cols if col in var_attr_name]
 cols = sort_cols(data, cols)
 
 
 @app.route("/api/network")
 def network(cols=cols, exclude=None, limit=None):
-    limit = request.args.get('limit')
+    limit = request.args.get('limit') or 40
     exclude = request.args.get('exclude')
     if exclude:
         cols = [col for col in cols if col not in exclude]
