@@ -5,16 +5,24 @@ from scipy.stats import chi2_contingency
 
 
 def is_binary(col):
+    return is_categorical(col, 2)
+
+
+def is_categorical(col, cats=5):
     try:
         valid = col[~np.isnan(col)]
         values = set(valid)
-        return len(values) == 2
+        return len(values) <= cats
     except TypeError:
         return False
 
 
 def filter_binary_cols(df):
-    cols = [col for col in df.columns if is_binary(df[col])]
+    return filter_categorical_cols(df, 2)
+
+
+def filter_categorical_cols(df, cats=5):
+    cols = [col for col in df.columns if is_categorical(df[col], cats)]
     return cols
 
 
@@ -83,8 +91,12 @@ def correlation_matrix(df, cols=None):
 def size(v):
     v = v[~np.isnan(v)]
     values = set(v)
-    assert values == set([0.0, 1.0])
-    return sum(v) / len(v)
+    if 0.0 in values:
+        return sum(v[v != 0.0]) / len(v)
+    else:
+        # Not numeric; just ignore the first thing seen for
+        # demo purposes
+        return sum(v[v != v[0]]) / len(v)
 
 
 def network_layout(corrs, sizes, labels):
@@ -116,7 +128,7 @@ def data_network(df, cols, labels=None):
     return network
 
 
-def data_tree(df, cols, labels, name="root"):
+def data_tree(df, cols, labels, name="root", variable=None, value=None):
     "Only use on categorical data"
     if cols:
         col = cols[0]
@@ -126,8 +138,13 @@ def data_tree(df, cols, labels, name="root"):
         children = []
         for val in vals:
             children.append(
-                data_tree(df[df[col] == val], rest, labels, labels[col][val]))
-        return {'name': name, 'children': children}
+                data_tree(df[df[col] == val], rest, labels, labels[col][val], col, val))
+        ans = {'name': name, 'children': children}
+        if variable:
+            ans['_variable'] = variable
+        if value:
+            ans['_value'] = value
+        return ans
     else:
         return {'name':  name, 'size': len(df)}
 

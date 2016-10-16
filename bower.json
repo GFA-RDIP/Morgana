@@ -25,6 +25,8 @@
     "iron-location": "^0.8.9",
     "d3": "^4.2.7",
     "underscore": "^1.8.3",
-    "linkurious.js": "https://github.com/Linkurious/linkurious.js.git#^1.5.1"
+    "linkurious.js": "https://github.com/Linkurious/linkurious.js.git#^1.5.1",
+    "randomcolor": "randomColor#^0.4.4",
+    "paper-tabs": "^1.6.2"
   }
 }
