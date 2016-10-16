@@ -13,15 +13,11 @@ data = read_data('HealthHack2016_Morgana_Data_permuted.csv')
 # Variable, name
 with open('variables.csv') as f:
     variables = [row for row in csv.DictReader(f)]
-
 var_map = {r['variable']: r['name'] for r in variables}
-print(len(var_map.keys()))
-print("-----------\n")
 
 # Variable, Value, Name, Shortname
 with open('attributes.csv') as f:
     attributes = [row for row in csv.DictReader(f)]
-    # print(attributes)
 
 
 var_attr_name = defaultdict(dict)
@@ -35,7 +31,6 @@ var_attr_name = dict(var_attr_name)
 
 # Filter down to the good columns
 cols = filter_binary_cols(data)
-print(cols)
 cols = [col for col in cols if col in var_attr_name]
 cols = sort_cols(data, cols)
 
@@ -44,13 +39,12 @@ cols = sort_cols(data, cols)
 def network(cols=cols, exclude=None, limit=None):
     limit = request.args.get('limit')
     exclude = request.args.get('exclude')
-    print(cols)
     if exclude:
         cols = [col for col in cols if col not in exclude]
     if limit:
         limit = int(limit)
         cols = cols[:limit]
-    print(cols)
+
     j = data_network(data, cols, [var_map[col] for col in cols])
     return jsonify(j)
 
