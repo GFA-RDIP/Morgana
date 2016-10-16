@@ -7,6 +7,7 @@ from scipy.stats import chi2_contingency
 def is_binary(col):
     return is_categorical(col, 2)
 
+
 def is_categorical(col, cats=5):
     try:
         valid = col[~np.isnan(col)]
@@ -15,32 +16,14 @@ def is_categorical(col, cats=5):
     except TypeError:
         return False
 
+
 def filter_binary_cols(df):
     return filter_categorical_cols(df, 2)
+
 
 def filter_categorical_cols(df, cats=5):
     cols = [col for col in df.columns if is_categorical(df[col], cats)]
     return cols
-
-
-def sort_cols(df, cols):
-    # Sort columns by number of non-NA entries
-    def size(col):
-        return sum(~np.isnan(df[col]))
-    return sorted(cols, key=size, reverse=True)
-
-
-def read_data(path):
-    return pd.read_csv(path)
-
-
-def column(m, col):
-    return m[col]
-
-
-def norm(v):
-    return sqrt(np.dot(v, v))
-
 
 
 def sort_cols(df, cols):
@@ -109,11 +92,11 @@ def size(v):
     v = v[~np.isnan(v)]
     values = set(v)
     if 0.0 in values:
-        return sum(v[v!=0.0])/len(v)
+        return sum(v[v != 0.0]) / len(v)
     else:
         # Not numeric; just ignore the first thing seen for
         # demo purposes
-        return sum(v[v!=v[0]])/len(v)
+        return sum(v[v != v[0]]) / len(v)
 
 
 def network_layout(corrs, sizes, labels):
