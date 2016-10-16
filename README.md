@@ -12,10 +12,11 @@ Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13])
  
 ## Project Team
 
-Edward Ross (back end)
-Nicholas Roberts (front end, network analysis, project design)
+Edward Ross (back end, presentor, data wrangler)
+Nicholas Roberts (front end, graphics, network analysis, project design)
+Tung van Truong (UX design, marketing, presentation) 
 
-Thanks for the assistance provided by the mentors Jarny Choi and Tung van Truong in the development of the backend, analysis and design.
+Thanks for the assistance provided by Jarny Choi on initial analysis of the data and input into alternative design concepts. His iPython notebooks are included in the project directory.
 
 Thanks also to Jagdish Sawlani for early input into the preperation of the data for analysis.
 
