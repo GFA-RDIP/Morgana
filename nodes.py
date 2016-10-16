@@ -128,7 +128,7 @@ def data_network(df, cols, labels=None):
     return network
 
 
-def data_tree(df, cols, labels, name="root"):
+def data_tree(df, cols, labels, name="root", variable=None, value=None):
     "Only use on categorical data"
     if cols:
         col = cols[0]
@@ -138,8 +138,13 @@ def data_tree(df, cols, labels, name="root"):
         children = []
         for val in vals:
             children.append(
-                data_tree(df[df[col] == val], rest, labels, labels[col][val]))
-        return {'name': name, 'children': children}
+                data_tree(df[df[col] == val], rest, labels, labels[col][val], col, val))
+        ans = {'name': name, 'children': children}
+        if variable:
+            ans['_variable'] = variable
+        if value:
+            ans['_value'] = value
+        return ans
     else:
         return {'name':  name, 'size': len(df)}
 
