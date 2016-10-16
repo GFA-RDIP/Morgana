@@ -2,10 +2,12 @@ import pandas as pd
 import numpy as np
 from math import sqrt
 from scipy.stats import chi2_contingency
+from functools import reduce
 
 
 def is_binary(col):
     return is_categorical(col, 2)
+
 
 def is_categorical(col, cats=5):
     try:
@@ -15,8 +17,10 @@ def is_categorical(col, cats=5):
     except TypeError:
         return False
 
+
 def filter_binary_cols(df):
     return filter_categorical_cols(df, 2)
+
 
 def filter_categorical_cols(df, cats=5):
     cols = [col for col in df.columns if is_categorical(df[col], cats)]
@@ -25,29 +29,7 @@ def filter_categorical_cols(df, cats=5):
 
 def sort_cols(df, cols):
     # Sort columns by number of non-NA entries
-    def size(col):
-        return sum(~np.isnan(df[col]))
-    return sorted(cols, key=size, reverse=True)
-
-
-def read_data(path):
-    return pd.read_csv(path)
-
-
-def column(m, col):
-    return m[col]
-
-
-def norm(v):
-    return sqrt(np.dot(v, v))
-
-
-
-def sort_cols(df, cols):
-    # Sort columns by number of non-NA entries
-    def size(col):
-        return sum(~np.isnan(df[col]))
-    return sorted(cols, key=size, reverse=True)
+    return sorted(cols, key=lambda x: length(df[x]), reverse=True)
 
 
 def read_data(path):
@@ -89,7 +71,7 @@ def correlation(v1, v2, f=corr_str):
     return f(v1, v2)
 
 
-def correlation_matrix(df, cols=None):
+def correlation_matrix(df, cols=None, binop=correlation):
     """df is a dataframe"""
     if not cols:
         cols = df.columns
@@ -100,7 +82,7 @@ def correlation_matrix(df, cols=None):
             if col1 == col2:
                 row.append(np.double(0))
             else:
-                row.append(correlation(df[col1], df[col2]))
+                row.append(binop(df[col1], df[col2]))
         answer.append(row)
     return answer
 
@@ -109,14 +91,23 @@ def size(v):
     v = v[~np.isnan(v)]
     values = set(v)
     if 0.0 in values:
-        return sum(v[v!=0.0])/len(v)
+        return sum(v[v != 0.0]) / len(v)
     else:
         # Not numeric; just ignore the first thing seen for
         # demo purposes
-        return sum(v[v!=v[0]])/len(v)
+        return sum(v[v != v[0]]) / len(v)
 
 
-def network_layout(corrs, sizes, labels):
+def length(v, w=None):
+    if w is None:
+        w = v
+    vt = ~np.isnan(v)
+    wt = ~np.isnan(w)
+    valid = np.logical_and(vt, wt)
+    return sum(valid)
+
+
+def network_layout(corrs, sizes, labels, l):
     answer = {'nodes': [], 'edges': []}
     for id, size in enumerate(sizes):
         answer['nodes'].append({'id': 'n%s' % id,
@@ -131,6 +122,7 @@ def network_layout(corrs, sizes, labels):
                     {'id': 'e%s' % counter,
                      'source': 'n%s' % i,
                      'target': 'n%s' % j,
+                     'num': float(l[i][j]),
                      'weight': corr})
                 counter += 1
     return answer
@@ -139,13 +131,14 @@ def network_layout(corrs, sizes, labels):
 def data_network(df, cols, labels=None):
     labels = labels or cols
     df = df[cols]
-    corr = correlation_matrix(df)
+    corr = correlation_matrix(df, cols)
+    l = correlation_matrix(df, cols, length)
     sizes = [size(df[col]) for col in cols]
-    network = network_layout(corr, sizes, labels)
+    network = network_layout(corr, sizes, labels, l)
     return network
 
 
-def data_tree(df, cols, labels, name="root"):
+def data_tree(df, cols, labels, name="root", variable=None, value=None):
     "Only use on categorical data"
     if cols:
         col = cols[0]
@@ -155,8 +148,13 @@ def data_tree(df, cols, labels, name="root"):
         children = []
         for val in vals:
             children.append(
-                data_tree(df[df[col] == val], rest, labels, labels[col][val]))
-        return {'name': name, 'children': children}
+                data_tree(df[df[col] == val], rest, labels, labels[col][val], col, val))
+        ans = {'name': name, 'children': children}
+        if variable:
+            ans['_variable'] = variable
+        if value:
+            ans['_value'] = value
+        return ans
     else:
         return {'name':  name, 'size': len(df)}
 

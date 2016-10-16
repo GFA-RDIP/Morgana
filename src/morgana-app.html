@@ -145,8 +145,7 @@
           value: function() {
             return [
               {"text": "Sunburst", href: "sunburst"},
-              {"text": "Network", href: "network"},
-              {"text": "Grid", href: "grid"}
+              {"text": "Network", href: "network"}
             ]
           }
         }
@@ -157,7 +156,12 @@
       },
       fetchPatientGrid: function(e) {
         console.log(e);
-        fetch('http://localhost:5000/api/patients', {mode: "cors", method: "POST", data: e.detail})
+        console.log(e.detail)
+        filters = {}
+        e.detail.map(function(ancestor) {
+          filters[ancestor._variable] = ancestor._value
+        })
+        fetch('http://localhost:5000/api/patients', {mode: "cors", method: "POST", data: JSON.stringify(e.detail)})
         .then(resp => resp.json())
         .then(function(patients_url) {
           diag = this.$$('paper-dialog');

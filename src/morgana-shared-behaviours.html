@@ -175,6 +175,13 @@
 				}
 				return path;
 			},
+			fetchNetwork: function(d) {
+				console.log(d);
+				console.log(Morgana.sunburst.getAncestors(d))
+				// Use the standard CustomEventAPI, not Polymer sugaring
+				document.querySelector('morgana-app').dispatchEvent(new CustomEvent('morgana-fetch-network',
+					{detail: {ancestors: Morgana.sunburst.getAncestors(d)}, bubbles: true}))
+			},
       generate: function() {
 				console.log(b);
         var totalSize = 0;
@@ -500,7 +507,7 @@
       },
 			navigate: function(d) {
 				if(document.querySelector('#navigation-direction').checked) {
-					fetchNetwork(d);
+					Morgana.sunburst.fetchNetwork(d);
 				} else {
 					Morgana.grid.displayFromSunburst(Morgana.sunburst.getAncestors(d));
 				}
