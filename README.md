@@ -13,12 +13,14 @@ Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13])
 ## Project Team
 
 Edward Ross (back end, presentor, data wrangler)
+
 Nicholas Roberts (front end, graphics, network analysis, project design)
-Tung van Truong (UX design, marketing, presentation) 
 
-Thanks for the assistance provided by Jarny Choi on initial analysis of the data and input into alternative design concepts. His iPython notebooks are included in the project directory.
+Tung van Truong (UX design, marketing, presentation) ([LinkedIn][17])
 
-Thanks also to Jagdish Sawlani for early input into the preperation of the data for analysis.
+Thanks for the assistance provided by Jarny Choi ([ResearchGate][14]) on initial analysis of the data and input into alternative design concepts. His iPython notebooks are included in the project directory.
+
+Thanks also to Jagdish Sawlani ([LinkedIn][15], [Twitter][16]) for early input into the preperation of the data for analysis.
 
 ## HealthHack Melbourne 2016 Project Brief
 
@@ -78,3 +80,7 @@ The sample dataset provided is released under a [ODC Open Database License (ODbL
 [11]: https://au.linkedin.com/in/jennifer-koplin-6a085695
 [12]: https://www.researchgate.net/profile/Simon_Cropper3
 [13]: https://au.linkedin.com/in/simonchristophercropper
+[14]: https://www.researchgate.net/profile/Jarny_Choi
+[15]: https://au.linkedin.com/in/jagdishsawlani
+[16]: https://twitter.com/jagdish_sawlani
+[17]: https://au.linkedin.com/in/tungvantruong
