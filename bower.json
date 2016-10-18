@@ -29,6 +29,7 @@
     "paper-tabs": "^1.6.2",
     "d3": "3.5.17",
     "paper-toggle-button": "^1.2.1",
-    "vaadin-grid": "^1.1.2"
+    "vaadin-grid": "^1.1.2",
+    "paper-dialog": "^1.1.0"
   }
 }
