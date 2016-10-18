@@ -1,0 +1,6 @@
+Morgana
+scipy>=0.18.1
+pandas>=0.19.0
+Flask>=0.11.1
+Flask_cors>=3.0.2
+numpy>=1.11.1

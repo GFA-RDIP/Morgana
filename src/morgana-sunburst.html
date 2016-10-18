@@ -1,7 +1,8 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html" />
 <link rel="import" href="morgana-shared-behaviours.html" />
-<!-- <script src="../bower_components/d3/d3.min.js"></script> -->
-<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="../bower_components/d3/d3.min.js"></script>
+<!-- <script src="//d3js.org/d3.v3.min.js"></script> -->
 
 <dom-module id="morgana-sunburst">
   <template>
@@ -11,10 +12,15 @@
         width: 100%;
         background:#eee;
         position: absolute;
+        display:flex;
+        flex-direction:row;
+      }
+      .menu {
+        display:flex;
+        justify-content:flex-end;
       }
       .sunburst-container {
         display:flex;
-        width:50%;
         justify-content:center;
         align-content:center;
         align-items:center;
@@ -80,15 +86,24 @@
 
     </style>
     <div class="container">
-      <div id="sequence">
+      <div>
+        <div id="sequence">
 
-      </div>
-      <div class="sunburst-container">
-        <div id="explanation">
-          <span id="percentage"></span>
+        </div>
+        <div class="sunburst-container">
+          <div id="explanation">
+            <span id="percentage"></span>
+          </div>
+        </div>
+        <div class="menu">
+          <paper-toggle-button id="navigation-direction">Export as csv by default</paper-toggle-button>
         </div>
       </div>
+      <div>
+
+      </div>
     </div>
+
 
   </template>
   <script>
