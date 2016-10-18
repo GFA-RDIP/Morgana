@@ -7,6 +7,7 @@
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
@@ -16,6 +17,7 @@
 <link rel="import" async href="../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="morgana-sunburst.html" />
 <link rel="import" href="morgana-network.html" />
+<link rel="import" href="morgana-grid.html" />
 <dom-module id="morgana-app">
   <template>
     <style>
@@ -80,7 +82,9 @@
     <app-location route="{{route}}"
     tail="{{subroute}}"
     use-hash-as-path></app-location>
-
+    <paper-dialog modal>
+      <a href="{{url}}"></a>
+    </paper-dialog>
     <!-- this app-route manages the top-level routes -->
     <app-route
         route="{{route}}"
@@ -123,6 +127,9 @@
                 </morgana-sunburst>
                 <morgana-network name="network">
                 </morgana-network>
+                <morgana-grid name="grid">
+
+                </morgana-grid>
               </iron-pages>
             </div>
 
@@ -144,16 +151,33 @@
         }
       },
       listeners: {
-        'morgana-fetch-network': 'fetchNetwork'
+        'morgana-fetch-network': 'fetchNetwork',
+        'morgana-fetch-patient-grid': 'fetchPatientGrid'
+      },
+      fetchPatientGrid: function(e) {
+        console.log(e);
+        console.log(e.detail)
+        filters = {}
+        e.detail.map(function(ancestor) {
+          filters[ancestor._variable] = ancestor._value
+        })
+        fetch('http://localhost:5000/api/patients', {mode: "cors", method: "POST", data: JSON.stringify(e.detail)})
+        .then(resp => resp.json())
+        .then(function(patients_url) {
+          diag = this.$$('paper-dialog');
+          diag.url = patients_url;
+        }.bind(this))
       },
       fetchNetwork: function(e) {
+        console.log(e)
         var variables = e.detail.ancestors;
-        fetch('/api/network', {method: 'POST', data: e.detail})
+        fetch('http://localhost:5000/api/network')
         .then(resp => resp.json())
         .then(function(network) {
-          Morgana.network.display(network).bind(this.$$('morgana-network'))
+          Morgana.network.display.bind(this.$$('morgana-network'))(network)
         }.bind(this))
-      }
+        .then(() => this.set('route.path', '/network') )
+      },
       attached: function() {
         this.async(function() {
           if (!this.route.path) {

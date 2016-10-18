@@ -1,0 +1,9 @@
+name: morgana-py3
+dependencies:
+  - python=3
+  - scipy
+  - numpy
+  - pandas
+  - pip:
+    - Flask
+    - Flask_cors

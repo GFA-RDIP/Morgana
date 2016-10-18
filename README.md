@@ -6,10 +6,10 @@ A data visualization tool to inspect complex datasets.
 
 Dr. David Martino ([ResearchGate][8], [LinkedIn][9])
 
-Dr. Jennifer Koplin ([ResearchGate][10], [LinkedIn][11]) 
+Dr. Jennifer Koplin ([ResearchGate][10], [LinkedIn][11])
 
 Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13])
- 
+
 ## Project Team
 
 Edward Ross (back end, presentor, data wrangler)
@@ -27,14 +27,14 @@ Thanks also to Jagdish Sawlani ([LinkedIn][15], [Twitter][16]) for early input i
 Researchers working in clinical studies collect a lot of patient samples, laboratory and clinical data, and these are often collected independently of each other.
 
 A major challenge is to easily see what data we have on whom. For example, we might have genetic data on 15% of our cohort, epigenetic measures on 35%, we will have collected flow cytometry data on 60% and serology on 100% of the cohort.
- 
+
 How can we aim to curb life-threatening diseases when the laboratory data we collect is not even remotely connected to clinical outcomes, and specimen data?
 
 How can data stored in different incompatible systems be of any use to solving a research question?
 
 There’s a severe need for an intuitive and interactive way to visualize relationships between different types of data collected in clinical studies.
- 
-We need to be able to examine this data in a myriad of scales and contexts, from a bird's eye view through to specific subgroups containing a half dozen specimens can inform this critical stage of research. 
+
+We need to be able to examine this data in a myriad of scales and contexts, from a bird's eye view through to specific subgroups containing a half dozen specimens can inform this critical stage of research.
 
 This project from the Murdoch Childrens Research Institute will utilize sample data from one of the worlds leading cohorts of paediatric food allergy, to develop a flexible, intuitive, visual solution to research data management.
 
@@ -50,18 +50,36 @@ The initial cohort segment is selected using a dynamic sunburst diagram, which f
 
 ## Etymology of name
 
-Named after the Arthurian sorceress Morgan le Fay, Fata Morgana or Morgana. Morgana is believed to have conjured the images of distant land or floating castles often seen in the Straits of Messina to lure unsuspecting sailors to their death. 
+Named after the Arthurian sorceress Morgan le Fay, Fata Morgana or Morgana. Morgana is believed to have conjured the images of distant land or floating castles often seen in the Straits of Messina to lure unsuspecting sailors to their death.
 
 Fata Morgana is an unusual and complex form of mirage where an object is significantly distorted and rapidly changes. The mirage can comprise of several inverted (upside down) and erect (right side up) that are stacked on top of one another. Fata Morgana are caused by rays of light being bent when passing through air layers of different temperatures in a steep thermal inversion where an atmospheric duct has formed.
 [Wikipedia 2016 - Fata Morgana (mirage)][1]
 
 > <span style="color:darkorange">The analogy here is that Morgana the software will rapidly reformat and present complex almost indecyperable datasets in novel and informative ways so casual researchers are attracted to investigate further. </span>
 
+## Installation
+In most cases, pip install is sufficient:
+```bash
+  pip install -r requirements.txt
+```
+If using the anaconda/miniconda python distribution, use the provided environment.yml to setup an isolated environment containing the required dependencies:
+```bash
+  conda env create -f morgana-env.yml
+  source activate morgana-py3
+```
+
+## Deployment
+```bash
+  nohup python -m http.server <optional-port-number> > static.log &
+  nohup python backend.py > backend.log & # runs on port 5000, currently hardcoded
+```
+
+
 ## Licenses
 
 Software devloped under this project is being released under a [GNU General Public License, version 3 (GPL-3.0)][2] license.
 
-Supportive documentation is released under a [Creative Commons Attribution 4.0 International (CC-BY)][3] license. 
+Supportive documentation is released under a [Creative Commons Attribution 4.0 International (CC-BY)][3] license.
 
 The sample dataset provided is released under a [ODC Open Database License (ODbL) version 1.0][6] license. Any rights in individual contents of the database are licensed under the [Database Contents License (DbCL) version 1.0][7].
 
