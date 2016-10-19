@@ -1,0 +1,569 @@
+<html><head><script src="../bower_components/underscore/underscore-min.js"></script>
+<script src="../bower_components/randomcolor/randomColor.js"></script>
+<script>
+	window.Morgana = window.Morgana || {
+    fetchArticles: (limit) => {
+      return fetch('http://localhost:5000/api/articles', {mode: 'cors'})
+      .then((resp) => { return resp.json(); })
+    },
+  	generateGraph: (N, E) => {
+  		var g = {
+  			nodes: [],
+  			edges: []
+  		}
+  		g.nodes = _.map(_.range(N), (i) => {
+  			return {
+  				id: i,
+                  label: 'Node ' + i,
+                  x: Math.random() * 100,
+                  y: Math.random() * 100,
+                  size: Math.random() * 10,
+                  color: '#666'
+  			}
+  		});
+  		g.edges = _.map(_.range(E), (i) => {
+  			return {
+  				id: i,
+                  source: (Math.random() * N | 0),
+                  target: (Math.random() * N | 0),
+                  size: Math.random(),
+                  color: '#ccc'
+  			}
+  		});
+  		return g;
+  	},
+  	applyNodeStyle: function(node) {
+  		node._label = node.label;
+  		if(_.keys(node).indexOf('properties') == -1) {
+  			return node;
+  		}
+  		switch(node._label) {
+  			case 'author':
+  				if(_.keys(node.properties).indexOf('standard_name') == -1) {
+  					return node;
+  				}
+  				node.label = node.properties.standard_name[0].value;
+  				node.color = "#3F51B5";
+  				break;
+  			case 'article':
+  				node.label = node.properties.title[0].value;
+  				node.color = '#009688';
+  				break;
+  		}
+  		return node;
+  	},
+    processNodeList: (nodes) => {
+      var minSize = 1;
+      var maxSize = 5;
+      return _.map(nodes, (node) => {
+        node.x = Math.random() * 100;
+        node.y = Math.random() * 100;
+        node.color = "#000";
+        node.size = Math.random() * (maxSize - minSize) + minSize;
+        return node;
+      })
+    },
+  	processGraphson: function(graph) {
+      console.log(graph);
+
+  		var graphson = _.map((nodes.slice(0, nodes.length - 2)), function(node) {
+  			return JSON.parse(node);
+  		});
+  		nodes = [];
+  		nodes = _.map(graphson.slice(0, 10000), (node) => {
+  			var x =  _.omit(node, (value, key, object) => {
+  				return (key == 'inE' || key == 'outE');
+  			});
+  			x.x = Math.random() * 100;
+  			x.y = Math.random() * 100;
+  			x.size = 0;
+  			// if(_.keys(node).indexOf('inE') != -1) {
+  			// 	x.size += _.flatten(_.map(node.inE, (edge_type) => {
+  			// 		return x;
+  			// 	}))
+  			// }
+  			x =  Morgana.applyNodeStyle(x);
+  			return x;
+  		});
+  		var node_indices = _.map(nodes, (node) => { return node.id });
+  		edges = _.without(_.uniq(_.flatten(_.map(graphson.slice(0, 10000), (node) => {
+  			var outE = [];
+  			var inE = [];
+  			if(_.keys(node).indexOf('inE') != -1) {
+  				inE = _.map(node.inE, (edgeset) => {
+  					return _.map(edgeset, (edge) => {
+  						return {source: edge.outV, properties: edge.properties, id: edge.id, target: node.id, color: "#9E9E9E"}
+  					});
+  				});
+  			}
+  			if(_.keys(node).indexOf('outE') != -1) {
+  				outE = _.map(node.outE, (edgeset) => {
+  					return _.map(edgeset, (edge) => {
+  						var x =  {target: edge.inV, properties: edge.properties, id: edge.id, source: node.id, color: "#9E9E9E"};
+  						return x;
+  					});
+  				});
+  			}
+  			return outE.concat(inE);
+  		})), (edge) => {
+  			return (edge.target, edge.source)
+  		}), (edge) => {
+  			return (node_indices.indexOf(edge.target) == -1 || node_indices.indexOf(edge.source) == -1)
+  		});;
+  		return {nodes: nodes, edges: edges};
+  	},
+  	applyGraphStyles: function(sigmaInstance) {
+
+  	},
+  	applyGraphInteractions: function(sigmaInstance) {
+  		sigmaInstance.bind('doubleClickNode', function(e) {
+  			console.log(e);
+  		});
+  		sigmaInstance.bind('hovers', function(e) {
+  			var adjacentNodes = [];
+
+  	        if (!e.data.enter.nodes.length) return;
+
+  	        // Get deduped, flattened list of all neighbours of all nodes in hover
+  	        adjacentNodes = _.uniq(_.flatten(_.map(e.data.enter.nodes, (node) => {
+  	        	return this.graph.adjacentNodes(node.id)
+  	        })));
+
+  	            // Render halo:
+  	        this.renderers[0].halo({
+  	        nodes: adjacentNodes
+  	        });
+  		}.bind(sigmaInstance))
+
+  		sigma.plugins.tooltips(sigmaInstance, sigmaInstance.renderers[0], {
+  			node: [{
+  	            show: 'clickNode',
+  	            renderer: function(node) {
+  	            	console.log(node);
+  	            }
+              }]
+  		});
+  	},
+  	applyForceLink: function(sigmaInstance) {
+  		var fa = sigma.layouts.configForceLink(sigmaInstance, {
+  			worker: true,
+  			autoStop: true,
+  			background: true,
+  			scaleRatio: 10,
+  			gravity: 5,
+  			easing: 'cubicInOut'
+  		});
+  		// Bind the events:
+  		fa.bind('start stop', function(e) {
+  			console.log(e.type);
+  		});
+  		// Start the ForceLink algorithm:
+  		sigma.layouts.startForceLink();
+  		console.log("ForceLink started");
+  		return fa;
+  	},
+  	findNeighbourhoodOfAuthor: function(graph,author_st_name) {
+  		return graph;
+  	},
+    sunburst: {
+			getAncestors: function(node) {
+				var path = [];
+				var current = node;
+				while (current.parent) {
+					path.unshift(current);
+					current = current.parent;
+				}
+				return path;
+			},
+			fetchNetwork: function(d) {
+				console.log(d);
+				console.log(Morgana.sunburst.getAncestors(d))
+				// Use the standard CustomEventAPI, not Polymer sugaring
+				document.querySelector('morgana-app').dispatchEvent(new CustomEvent('morgana-fetch-network',
+					{detail: {ancestors: Morgana.sunburst.getAncestors(d)}, bubbles: true}))
+			},
+      generate: function() {
+				console.log(b);
+        var totalSize = 0;
+        var width = 640;
+        var height = 480;
+				console.log(document.querySelector('.container').clientWidth)
+        var radius = Math.min(width, height) / 2;
+        var color = d3.scale.category20c();
+        var b = {
+          w: 150, h: 30, s: 3, t: 10
+        };
+        var vis = d3.select('.sunburst-container').append("svg:svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("svg:g")
+            .attr("id", "container")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        var partition = d3.layout.partition()
+            .size([2 * Math.PI, radius * radius])
+            .value(function(d) { return d.size; });
+
+        var arc = d3.svg.arc()
+            .startAngle(function(d) { return d.x; })
+            .endAngle(function(d) { return d.x + d.dx; })
+            .innerRadius(function(d) { return Math.sqrt(d.y); })
+            .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+
+        // Use d3.text and d3.csv.parseRows so that we do not need to have a header
+        // row, and can receive the csv as an array of arrays.
+        // d3.text("visit-sequences.csv", function(text) {
+        //   var csv = d3.csv.parseRows(text);
+        //   var json = buildHierarchy(csv);
+        //   createVisualization(json);
+        // });
+        fetch('http://localhost:5000/api/sunburst', {mode: 'cors'})
+        .then( (resp) => { return resp.json()})
+        .then( (tree) => {
+          createVisualization(tree)
+        })
+
+				function fetchNetwork(d) {
+					console.log(d);
+					console.log(Morgana.sunburst.getAncestors(d))
+					// Use the standard CustomEventAPI, not Polymer sugaring
+					this.dispatchEvent(new CustomEvent('morgana-fetch-network',
+						{detail: {ancestors: Morgana.sunburst.getAncestors(d)}, bubbles: true}))
+				}
+        // Main function to draw and set up the visualization, once we have the data.
+        function createVisualization(json) {
+					function computeStringWidth(string, font) {
+						var container = document.createElement('span');
+						container.innerHTML = string;
+						container.style.fontFamily = font;
+						var width = container.clientWidth;
+						return width;
+					}
+          // Basic setup of page elements.
+          initializeBreadcrumbTrail();
+          drawLegend();
+          d3.select("#togglelegend").on("click", toggleLegend);
+
+          // Bounding circle underneath the sunburst, to make it easier to detect
+          // when the mouse leaves the parent g.
+          vis.append("svg:circle")
+              .attr("r", radius)
+              .style("opacity", 0);
+
+          // For efficiency, filter nodes to keep only those large enough to see.
+          var nodes = partition.nodes(json)
+              .filter(function(d) {
+              return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
+              });
+
+					this.colors = {"root": "#fff"}
+					nodes.map(function(node) {
+						this.colors[node.name] = randomColor({"luminosity": "bright", hue: "blue"});
+						node['string_width'] = computeStringWidth(node.name, 'Open-Sans');
+					})
+
+          var path = vis.data([json]).selectAll("path")
+              .data(nodes)
+              .enter().append("svg:path")
+              .attr("display", function(d) { return d.depth ? null : "none"; })
+              .attr("d", arc)
+							.attr('name', function(d) { return d.name })
+              .attr("fill-rule", "evenodd")
+              .style("fill", function(d) { return this.colors[d.name]; }.bind(this))
+              .style("opacity", 1)
+              .on("mouseover", mouseover);
+
+          // Add the mouseleave handler to the bounding circle.
+          d3.select("#container").on("mouseleave", mouseleave);
+					// d3.selectAll("path")
+					// .on("click", fetchNetwork);
+          // Get total size of the tree = value of root node from partition.
+          totalSize = path.node().__data__.value;
+         };
+
+        // Fade all but the current sequence, and show it in the breadcrumb trail.
+        function mouseover(d) {
+
+          var percentage = (100 * d.value / totalSize).toPrecision(3);
+					var val = d.value;
+          var percentageString = `${percentage}%`;
+          if (percentage < 0.1) {
+            percentageString = "< 0.1%";
+          }
+
+          d3.select("#percentage")
+              .html(percentageString+`<br />${val}/${totalSize}`);
+
+          // d3.select("#explanation")
+          //     .style("visibility", "");
+
+          var sequenceArray = Morgana.sunburst.getAncestors(d);
+          updateBreadcrumbs(sequenceArray, percentageString);
+
+          // Fade all the segments.
+          d3.selectAll("path")
+              .style("opacity", 0.3);
+
+          // Then highlight only those that are an ancestor of the current segment.
+          vis.selectAll("path")
+              .filter(function(node) {
+                        return (sequenceArray.indexOf(node) >= 0);
+                      })
+              .style("opacity", 1);
+        }
+
+        // Restore everything to full opacity when moving off the visualization.
+        function mouseleave(d) {
+
+          // Hide the breadcrumb trail
+          d3.select("#trail")
+              .style("visibility", "hidden");
+
+          // Deactivate all segments during transition.
+          d3.selectAll("path").on("mouseover", null);
+
+          // Transition each segment to full opacity and then reactivate it.
+          d3.selectAll("path")
+              .transition()
+              .duration(1000)
+              .style("opacity", 1)
+              .each("end", function() {
+                      d3.select(this).on("mouseover", mouseover);
+                      d3.select(this).on("click", Morgana.sunburst.navigate);
+                    });
+
+          // d3.select("#explanation")
+          //     .style("visibility", "hidden");
+        }
+
+        // Given a node in a partition layout, return an array of all of its ancestor
+        // nodes, highest first, but excluding the root.
+        function getAncestors(node) {
+          var path = [];
+          var current = node;
+          while (current.parent) {
+            path.unshift(current);
+            current = current.parent;
+          }
+          return path;
+        }
+
+        function initializeBreadcrumbTrail() {
+          // Add the svg area.
+          var trail = d3.select("#sequence").append("svg:svg")
+              .attr("width", width)
+              .attr("height", 50)
+              .attr("id", "trail");
+          // Add the label at the end, for the percentage.
+          trail.append("svg:text")
+            .attr("id", "endlabel")
+            .style("fill", "#000");
+        }
+
+        // Generate a string that describes the points of a breadcrumb polygon.
+        function breadcrumbPoints(d, i) {
+          var points = [];
+          points.push("0,0");
+          points.push(b.w + ",0");
+          points.push(b.w + b.t + "," + (b.h / 2));
+          points.push(b.w + "," + b.h);
+          points.push("0," + b.h);
+          if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
+            points.push(b.t + "," + (b.h / 2));
+          }
+          return points.join(" ");
+        }
+
+        // Update the breadcrumb trail to show the current sequence and percentage.
+        function updateBreadcrumbs(nodeArray, percentageString) {
+
+          // Data join; key function combines name and depth (= position in sequence).
+          var g = d3.select("#trail")
+              .selectAll("g")
+              .data(nodeArray, function(d) { return d.name + d.depth; });
+
+          // Add breadcrumb and label for entering nodes.
+          var entering = g.enter().append("svg:g");
+
+          entering.append("svg:polygon")
+              .attr("points", breadcrumbPoints)
+              .style("fill", function(d) { return this.colors[d.name]; }.bind(this));
+
+          entering.append("svg:text")
+              .attr("x", (b.w + b.t) / 2)
+              .attr("y", b.h / 2)
+              .attr("dy", "0.35em")
+              .attr("text-anchor", "middle")
+              .text(function(d) { return d.name; });
+
+          // Set position for entering and updating nodes.
+          g.attr("transform", function(d, i) {
+            return "translate(" + i * (b.w + b.s) + ", 0)";
+          });
+
+          // Remove exiting nodes.
+          g.exit().remove();
+
+          // Now move and update the percentage at the end.
+          d3.select("#trail").select("#endlabel")
+              .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
+              .attr("y", b.h / 2)
+              .attr("dy", "0.35em")
+              .attr("text-anchor", "middle")
+              .text(percentageString);
+
+          // Make the breadcrumb trail visible, if it's hidden.
+          d3.select("#trail")
+              .style("visibility", "");
+
+        }
+
+        function drawLegend() {
+
+          // Dimensions of legend item: width, height, spacing, radius of rounded rect.
+          var li = {
+            w: 75, h: 30, s: 3, r: 3
+          };
+
+          var legend = d3.select("#legend").append("svg:svg")
+              .attr("width", li.w)
+              .attr("height", d3.keys(this.colors).length * (li.h + li.s));
+
+          var g = legend.selectAll("g")
+              .data(d3.entries(this.colors))
+              .enter().append("svg:g")
+              .attr("transform", function(d, i) {
+                      return "translate(0," + i * (li.h + li.s) + ")";
+                   });
+
+          g.append("svg:rect")
+              .attr("rx", li.r)
+              .attr("ry", li.r)
+              .attr("width", li.w)
+              .attr("height", li.h)
+              .style("fill", function(d) { return d.value; });
+
+          g.append("svg:text")
+              .attr("x", li.w / 2)
+              .attr("y", li.h / 2)
+              .attr("dy", "0.35em")
+              .attr("text-anchor", "middle")
+              .text(function(d) { return d.key; });
+        }
+
+        function toggleLegend() {
+          var legend = d3.select("#legend");
+          if (legend.style("visibility") == "hidden") {
+            legend.style("visibility", "");
+          } else {
+            legend.style("visibility", "hidden");
+          }
+        }
+
+        // Take a 2-column CSV and transform it into a hierarchical structure suitable
+        // for a partition layout. The first column is a sequence of step names, from
+        // root to leaf, separated by hyphens. The second column is a count of how
+        // often that sequence occurred.
+        function buildHierarchy(csv) {
+          var root = {"name": "root", "children": []};
+          for (var i = 0; i < csv.length; i++) {
+            var sequence = csv[i][0];
+            var size = +csv[i][1];
+            if (isNaN(size)) { // e.g. if this is a header row
+              continue;
+            }
+            var parts = sequence.split("-");
+            var currentNode = root;
+            for (var j = 0; j < parts.length; j++) {
+              var children = currentNode["children"];
+              var nodeName = parts[j];
+              var childNode;
+              if (j + 1 < parts.length) {
+           // Not yet at the end of the sequence; move down the tree.
+         	var foundChild = false;
+         	for (var k = 0; k < children.length; k++) {
+         	  if (children[k]["name"] == nodeName) {
+         	    childNode = children[k];
+         	    foundChild = true;
+         	    break;
+         	  }
+         	}
+          // If we don't already have a child node for this branch, create it.
+         	if (!foundChild) {
+         	  childNode = {"name": nodeName, "children": []};
+         	  children.push(childNode);
+         	}
+         	currentNode = childNode;
+              } else {
+         	// Reached the end of the sequence; create a leaf node.
+         	childNode = {"name": nodeName, "size": size};
+         	children.push(childNode);
+              }
+            }
+          }
+          return root;
+        };
+
+      },
+			navigate: function(d) {
+				if(document.querySelector('#navigation-direction').checked) {
+					Morgana.sunburst.fetchNetwork(d);
+				} else {
+					Morgana.grid.displayFromSunburst(Morgana.sunburst.getAncestors(d));
+				}
+			}
+    },
+		network: {
+			community: function(sigma_inst) {
+				var louvainInstance = sigma.plugins.louvain(sigma_inst.graph, {
+				  setter: function(communityId) { this.community = communityId; }
+				});
+			},
+			display: function(network_object) {
+				var random_colors = {}
+				network_object.nodes.map((node) => {
+					node.x = Math.random() * 100;
+					node.y = Math.random() * 100;
+					node.color = randomColor();
+					node.size = Math.pow(10, node.size + 3)
+				})
+				this.s.graph.clear();
+				this.s.graph.read(network_object);
+				setTimeout(function() {
+					this.s.refresh(); this.s.refresh();
+					Morgana.network.community(this.s)
+					this.s.graph.nodes().map((node) => {
+						if (!(node.community in random_colors)) {
+							random_colors[node.community] = randomColor({luminosity: "bright", hue: "blue"});
+						}
+						node.color = random_colors[node.community];
+					})
+					var fa = Morgana.applyForceLink(this.s)
+				}.bind(this), 500);
+
+			}
+		},
+		grid: {
+			displayFromGraph: function(nodes) {
+				var filters = {}
+				nodes.map((node) => {
+					fields[node._value] = "*";
+				})
+				fetch('http://localhost:5000/api/patients', {data: filters})
+				.then(resp => resp.json())
+				.then(function(patients) {
+					this.dispatchEvent(new CustomEvent('morgana-display-patients', {detail: patients, bubbles: true}))
+				}.bind(this))
+			},
+			displayFromSunburst: function(ancestors) {
+				filters = {};
+				ancestors.map( (ancestor) => {
+					// use both varname and value
+					filters[ancestor._variable] = ancestor._value
+				})
+				document.querySelector('morgana-app').dispatchEvent(new CustomEvent('morgana-fetch-patient-grid', {detail: ancestors, bubbles: true}))
+			}
+		}
+  }
+</script>
+</head><body></body></html>
