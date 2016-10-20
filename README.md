@@ -77,7 +77,6 @@ If using the anaconda/miniconda python distribution, use the provided environmen
   nohup python backend.py > backend.log & # runs on port 5000, currently hardcoded
 ```
 
-
 ## Licenses
 
 Software devloped under this project is being released under a [GNU General Public License, version 3 (GPL-3.0)][2] license.
