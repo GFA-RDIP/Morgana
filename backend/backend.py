@@ -9,15 +9,16 @@ app = Flask(__name__)
 from flask_cors import CORS
 cors = CORS(app)
 
-data = read_data('HealthHack2016_Morgana_Data_permuted.csv')
+
+data = read_data('../data/HealthHack2016_Morgana_Data_permuted.csv')
 
 # Variable, name
-with open('variables.csv') as f:
+with open('../data/variables.csv') as f:
     variables = [row for row in csv.DictReader(f)]
 var_map = {r['variable']: r['name'] for r in variables}
 
 # Variable, Value, Name, Shortname
-with open('attributes.csv') as f:
+with open('../data/attributes.csv') as f:
     attributes = [row for row in csv.DictReader(f)]
 
 
@@ -42,7 +43,7 @@ data = data[['id'] + cols]
 
 
 try:
-    with open('network.dat', 'rb') as f:
+    with open('../data/network.dat', 'rb') as f:
         network_memo = pickle.load(f)
 except FileNotFoundError:
     network_memo = {}
@@ -61,13 +62,13 @@ def network(cols=cols, exclude=None, limit=None):
     if tuple(cols) not in network_memo:
         network_memo[tuple(cols)] = data_network(
             data, cols, [var_map[col] for col in cols])
-        with open('network.dat', 'wb') as f:
+        with open('../data/network.dat', 'wb') as f:
             pickle.dump(network_memo, f)
     j = network_memo[tuple(cols)]
     return jsonify(j)
 
 try:
-    with open('sun.dat', 'rb') as f:
+    with open('../data/sun.dat', 'rb') as f:
         sun_memo = pickle.load(f)
 except FileNotFoundError:
     sun_memo = {}
@@ -84,7 +85,7 @@ def sunburst(cols=cols):
         cols = cols[:limit]
     if tuple(cols) not in sun_memo:
         sun_memo[tuple(cols)] = data_tree(data, cols, var_attr_name)
-        with open('sun.dat', 'wb') as f:
+        with open('../data/sun.dat', 'wb') as f:
             pickle.dump(sun_memo, f)
     j = sun_memo[tuple(cols)]
     return jsonify(j)
@@ -98,7 +99,7 @@ def patient():
     for var, val in selector.items():
         if val != "*":
             out_data=out_data[out_data[var] == val]
-    with open('data.csv', 'w') as f:
+    with open('../data/data.csv', 'w') as f:
         out_data.to_csv(f)
 
     # return jsonify(out_data)

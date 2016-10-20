@@ -13,10 +13,11 @@
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" async href="../bower_components/iron-selector/iron-selector.html">
-<link rel="import" async href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="morgana-sunburst.html" />
 <link rel="import" href="morgana-network.html" />
+<link rel="import" href="morgana-view404.html" />
 <dom-module id="morgana-app">
   <template>
     <style>
@@ -121,13 +122,15 @@
                 </app-toolbar>
             </app-header>
             <div class="content">
-              <iron-pages selected="{{routeData.view}}" attr-for-selected="name">
+              <iron-pages selected="{{routeData.view}}"
+              attr-for-selected="name"
+              fallback-selection="404">
                 <morgana-sunburst name="sunburst">
                 </morgana-sunburst>
                 <morgana-network name="network">
                 </morgana-network>
+                <morgana-view404 name="404"></morgana-view404>
                 <morgana-grid name="grid">
-
                 </morgana-grid>
               </iron-pages>
             </div>
@@ -160,7 +163,7 @@
         e.detail.map(function(ancestor) {
           filters[ancestor._variable] = ancestor._value
         })
-        fetch('http://localhost:5000/api/patients', {mode: "cors", method: "POST", data: JSON.stringify(e.detail)})
+        fetch('/api/patients', {mode: "cors", method: "POST", data: JSON.stringify(e.detail)})
         .then(resp => resp.json())
         .then(function(patients_url) {
           diag = this.$$('paper-dialog');
@@ -170,7 +173,7 @@
       fetchNetwork: function(e) {
         console.log(e)
         var variables = e.detail.ancestors;
-        fetch('http://localhost:5000/api/network')
+        fetch('/api/network')
         .then(resp => resp.json())
         .then(function(network) {
           Morgana.network.display.bind(this.$$('morgana-network'))(network)

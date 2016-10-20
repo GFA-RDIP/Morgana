@@ -1,9 +1,9 @@
-<script src="/bower_components/underscore/underscore-min.js"></script>
+<script src="../bower_components/underscore/underscore-min.js"></script>
 <script src="../bower_components/randomcolor/randomColor.js"></script>
 <script>
 	window.Morgana = window.Morgana || {
     fetchArticles: (limit) => {
-      return fetch('http://localhost:5000/api/articles', {mode: 'cors'})
+      return fetch('/api/articles', {mode: 'cors'})
       .then((resp) => { return resp.json(); })
     },
   	generateGraph: (N, E) => {
@@ -187,7 +187,6 @@
         var totalSize = 0;
         var width = 640;
         var height = 480;
-				console.log(document.querySelector('.container').clientWidth)
         var radius = Math.min(width, height) / 2;
         var color = d3.scale.category20c();
         var b = {
@@ -217,7 +216,7 @@
         //   var json = buildHierarchy(csv);
         //   createVisualization(json);
         // });
-        fetch('http://localhost:5000/api/sunburst', {mode: 'cors'})
+        fetch('/api/sunburst', {mode: 'cors'})
         .then( (resp) => { return resp.json()})
         .then( (tree) => {
           createVisualization(tree)
@@ -549,7 +548,7 @@
 				nodes.map((node) => {
 					fields[node._value] = "*";
 				})
-				fetch('http://localhost:5000/api/patients', {data: filters})
+				fetch('/api/patients', {data: filters})
 				.then(resp => resp.json())
 				.then(function(patients) {
 					this.dispatchEvent(new CustomEvent('morgana-display-patients', {detail: patients, bubbles: true}))

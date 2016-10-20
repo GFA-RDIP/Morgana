@@ -1,4 +1,4 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -13,11 +13,11 @@
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" async href="../bower_components/iron-selector/iron-selector.html">
-<link rel="import" async href="../bower_components/paper-toast/paper-toast.html">
-<link rel="import" href="morgana-sunburst.html" />
-<link rel="import" href="morgana-network.html" />
-<dom-module id="morgana-app">
+<link rel="import" async="" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" async="" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="morgana-sunburst.html">
+<link rel="import" href="morgana-network.html">
+</head><body><dom-module id="morgana-app">
   <template>
     <style>
       :host {
@@ -78,20 +78,14 @@
     </style>
     <paper-toast id="toast_notification">
     </paper-toast>
-    <app-location route="{{route}}"
-    tail="{{subroute}}"
-    use-hash-as-path></app-location>
-    <paper-dialog modal>
+    <app-location route="{{route}}" tail="{{subroute}}" use-hash-as-path=""></app-location>
+    <paper-dialog modal="">
       <a href="{{url}}"></a>
     </paper-dialog>
-    <!-- this app-route manages the top-level routes -->
-    <app-route
-        route="{{route}}"
-        pattern="/:view"
-        data="{{routeData}}"
-        tail="{{subroute}}"></app-route>
+    
+    <app-route route="{{route}}" pattern="/:view" data="{{routeData}}" tail="{{subroute}}"></app-route>
     <iron-media-query query="max-width: 767px" query-matches="{{smallScreen}}"></iron-media-query>
-    <app-drawer-layout fullbleed force-narrow>
+    <app-drawer-layout fullbleed="" force-narrow="">
         <app-drawer>
             <iron-selector role="navigation" class="drawer-list" selected="about">
                 <template is="dom-repeat" items="{{menuItems}}">
@@ -103,13 +97,13 @@
             <app-header>
                 <app-toolbar>
 
-                    <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-                    <div main-title>Morgana</div>
-                      <paperToast></paperToast>
+                    <paper-icon-button icon="menu" drawer-toggle=""></paper-icon-button>
+                    <div main-title="">Morgana</div>
+                      <papertoast></papertoast>
                     <template is="dom-if" if="[[!smallScreen]]">
                     <paper-tabs>
                         <template is="dom-repeat" items="{{menuItems}}">
-                            <paper-tab link>
+                            <paper-tab link="">
                               <a class="link" href="#/{{item.href}}">{{item.text}}</a>
                             </paper-tab>
                         </template>
@@ -187,3 +181,4 @@
     });
   </script>
 </dom-module>
+</body></html>

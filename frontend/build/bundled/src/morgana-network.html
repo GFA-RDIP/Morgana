@@ -1,0 +1,29 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="morgana-shared-behaviours.html">
+<script src="../bower_components/linkurious.js/dist/sigma.min.js"></script>
+<script src="../bower_components/linkurious.js/dist/plugins.min.js"></script>
+<script src="../bower_components/linkurious.js/dist/plugins/sigma.renderers.customEdgeShapes.min.js"></script>
+<script src="../bower_components/linkurious.js/dist/plugins/sigma.renderers.linkurious.min.js"></script>
+<script src="../bower_components/linkurious.js/dist/plugins/sigma.plugins.design.min.js"></script>
+<script src="../bower_components/linkurious.js/dist/plugins/sigma.statistics.louvain.min.js"></script>
+<script src="../bower_components/linkurious.js/dist/plugins/sigma.statistics.HITS.min.js"></script>
+<script src="../bower_components/linkurious.js/dist/plugins/sigma.layouts.forceLink.min.js"></script></head><body><dom-module id="morgana-network">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      div {
+        height: calc(100vh - 64px);
+        width: 100%;
+        background:#eee;
+        position: absolute;
+      }
+    </style>
+    <div class="graph-container">
+
+    </div>
+  </template>
+  <script>Polymer({is:"morgana-network",attached:function(){var e=Morgana.generateGraph(100,500);console.log(e),console.log(this.$$(".graph-container")),this.s=new sigma({graph:e,renderers:[{type:"canvas",container:this.$$(".graph-container")}],settings:{nodeHaloColor:"#2B77A2",edgeHaloColor:"#ecf0f1",nodeHaloSize:40,edgeHaloSize:10,autoRescale:!0}}),setTimeout(function(){this.s.refresh(),this.s.refresh()}.bind(this),1e3),Morgana.applyGraphStyles(this.s),Morgana.applyGraphInteractions(this.s)}});</script>
+</dom-module>
+</body></html>
