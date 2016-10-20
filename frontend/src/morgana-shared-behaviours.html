@@ -3,7 +3,7 @@
 <script>
 	window.Morgana = window.Morgana || {
     fetchArticles: (limit) => {
-      return fetch('http://localhost:5000/api/articles', {mode: 'cors'})
+      return fetch('/api/articles', {mode: 'cors'})
       .then((resp) => { return resp.json(); })
     },
   	generateGraph: (N, E) => {
@@ -216,7 +216,7 @@
         //   var json = buildHierarchy(csv);
         //   createVisualization(json);
         // });
-        fetch('http://localhost:5000/api/sunburst', {mode: 'cors'})
+        fetch('/api/sunburst', {mode: 'cors'})
         .then( (resp) => { return resp.json()})
         .then( (tree) => {
           createVisualization(tree)
@@ -548,7 +548,7 @@
 				nodes.map((node) => {
 					fields[node._value] = "*";
 				})
-				fetch('http://localhost:5000/api/patients', {data: filters})
+				fetch('/api/patients', {data: filters})
 				.then(resp => resp.json())
 				.then(function(patients) {
 					this.dispatchEvent(new CustomEvent('morgana-display-patients', {detail: patients, bubbles: true}))
