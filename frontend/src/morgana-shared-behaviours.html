@@ -1,5 +1,6 @@
 <script src="../bower_components/underscore/underscore-min.js"></script>
 <script src="../bower_components/randomcolor/randomColor.js"></script>
+<script src="../bower_components/d3/d3.min.js"></script>
 <script>
 	window.Morgana = window.Morgana || {
     fetchArticles: (limit) => {
@@ -32,26 +33,6 @@
   		});
   		return g;
   	},
-  	applyNodeStyle: function(node) {
-  		node._label = node.label;
-  		if(_.keys(node).indexOf('properties') == -1) {
-  			return node;
-  		}
-  		switch(node._label) {
-  			case 'author':
-  				if(_.keys(node.properties).indexOf('standard_name') == -1) {
-  					return node;
-  				}
-  				node.label = node.properties.standard_name[0].value;
-  				node.color = "#3F51B5";
-  				break;
-  			case 'article':
-  				node.label = node.properties.title[0].value;
-  				node.color = '#009688';
-  				break;
-  		}
-  		return node;
-  	},
     processNodeList: (nodes) => {
       var minSize = 1;
       var maxSize = 5;
@@ -63,55 +44,6 @@
         return node;
       })
     },
-  	processGraphson: function(graph) {
-      console.log(graph);
-
-  		var graphson = _.map((nodes.slice(0, nodes.length - 2)), function(node) {
-  			return JSON.parse(node);
-  		});
-  		nodes = [];
-  		nodes = _.map(graphson.slice(0, 10000), (node) => {
-  			var x =  _.omit(node, (value, key, object) => {
-  				return (key == 'inE' || key == 'outE');
-  			});
-  			x.x = Math.random() * 100;
-  			x.y = Math.random() * 100;
-  			x.size = 0;
-  			// if(_.keys(node).indexOf('inE') != -1) {
-  			// 	x.size += _.flatten(_.map(node.inE, (edge_type) => {
-  			// 		return x;
-  			// 	}))
-  			// }
-  			x =  Morgana.applyNodeStyle(x);
-  			return x;
-  		});
-  		var node_indices = _.map(nodes, (node) => { return node.id });
-  		edges = _.without(_.uniq(_.flatten(_.map(graphson.slice(0, 10000), (node) => {
-  			var outE = [];
-  			var inE = [];
-  			if(_.keys(node).indexOf('inE') != -1) {
-  				inE = _.map(node.inE, (edgeset) => {
-  					return _.map(edgeset, (edge) => {
-  						return {source: edge.outV, properties: edge.properties, id: edge.id, target: node.id, color: "#9E9E9E"}
-  					});
-  				});
-  			}
-  			if(_.keys(node).indexOf('outE') != -1) {
-  				outE = _.map(node.outE, (edgeset) => {
-  					return _.map(edgeset, (edge) => {
-  						var x =  {target: edge.inV, properties: edge.properties, id: edge.id, source: node.id, color: "#9E9E9E"};
-  						return x;
-  					});
-  				});
-  			}
-  			return outE.concat(inE);
-  		})), (edge) => {
-  			return (edge.target, edge.source)
-  		}), (edge) => {
-  			return (node_indices.indexOf(edge.target) == -1 || node_indices.indexOf(edge.source) == -1)
-  		});;
-  		return {nodes: nodes, edges: edges};
-  	},
   	applyGraphStyles: function(sigmaInstance) {
 
   	},
@@ -165,6 +97,9 @@
   	findNeighbourhoodOfAuthor: function(graph,author_st_name) {
   		return graph;
   	},
+		sunburst_dev: {
+
+		},
     sunburst: {
 			getAncestors: function(node) {
 				var path = [];
@@ -188,7 +123,6 @@
         var width = 640;
         var height = 480;
         var radius = Math.min(width, height) / 2;
-        var color = d3.scale.category20c();
         var b = {
           w: 150, h: 30, s: 3, t: 10
         };
@@ -209,13 +143,6 @@
             .innerRadius(function(d) { return Math.sqrt(d.y); })
             .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
 
-        // Use d3.text and d3.csv.parseRows so that we do not need to have a header
-        // row, and can receive the csv as an array of arrays.
-        // d3.text("visit-sequences.csv", function(text) {
-        //   var csv = d3.csv.parseRows(text);
-        //   var json = buildHierarchy(csv);
-        //   createVisualization(json);
-        // });
         fetch('/api/sunburst', {mode: 'cors'})
         .then( (resp) => { return resp.json()})
         .then( (tree) => {
@@ -240,8 +167,6 @@
 					}
           // Basic setup of page elements.
           initializeBreadcrumbTrail();
-          drawLegend();
-          d3.select("#togglelegend").on("click", toggleLegend);
 
           // Bounding circle underneath the sunburst, to make it easier to detect
           // when the mouse leaves the parent g.
@@ -416,93 +341,6 @@
               .style("visibility", "");
 
         }
-
-        function drawLegend() {
-
-          // Dimensions of legend item: width, height, spacing, radius of rounded rect.
-          var li = {
-            w: 75, h: 30, s: 3, r: 3
-          };
-
-          var legend = d3.select("#legend").append("svg:svg")
-              .attr("width", li.w)
-              .attr("height", d3.keys(this.colors).length * (li.h + li.s));
-
-          var g = legend.selectAll("g")
-              .data(d3.entries(this.colors))
-              .enter().append("svg:g")
-              .attr("transform", function(d, i) {
-                      return "translate(0," + i * (li.h + li.s) + ")";
-                   });
-
-          g.append("svg:rect")
-              .attr("rx", li.r)
-              .attr("ry", li.r)
-              .attr("width", li.w)
-              .attr("height", li.h)
-              .style("fill", function(d) { return d.value; });
-
-          g.append("svg:text")
-              .attr("x", li.w / 2)
-              .attr("y", li.h / 2)
-              .attr("dy", "0.35em")
-              .attr("text-anchor", "middle")
-              .text(function(d) { return d.key; });
-        }
-
-        function toggleLegend() {
-          var legend = d3.select("#legend");
-          if (legend.style("visibility") == "hidden") {
-            legend.style("visibility", "");
-          } else {
-            legend.style("visibility", "hidden");
-          }
-        }
-
-        // Take a 2-column CSV and transform it into a hierarchical structure suitable
-        // for a partition layout. The first column is a sequence of step names, from
-        // root to leaf, separated by hyphens. The second column is a count of how
-        // often that sequence occurred.
-        function buildHierarchy(csv) {
-          var root = {"name": "root", "children": []};
-          for (var i = 0; i < csv.length; i++) {
-            var sequence = csv[i][0];
-            var size = +csv[i][1];
-            if (isNaN(size)) { // e.g. if this is a header row
-              continue;
-            }
-            var parts = sequence.split("-");
-            var currentNode = root;
-            for (var j = 0; j < parts.length; j++) {
-              var children = currentNode["children"];
-              var nodeName = parts[j];
-              var childNode;
-              if (j + 1 < parts.length) {
-           // Not yet at the end of the sequence; move down the tree.
-         	var foundChild = false;
-         	for (var k = 0; k < children.length; k++) {
-         	  if (children[k]["name"] == nodeName) {
-         	    childNode = children[k];
-         	    foundChild = true;
-         	    break;
-         	  }
-         	}
-          // If we don't already have a child node for this branch, create it.
-         	if (!foundChild) {
-         	  childNode = {"name": nodeName, "children": []};
-         	  children.push(childNode);
-         	}
-         	currentNode = childNode;
-              } else {
-         	// Reached the end of the sequence; create a leaf node.
-         	childNode = {"name": nodeName, "size": size};
-         	children.push(childNode);
-              }
-            }
-          }
-          return root;
-        };
-
       },
 			navigate: function(d) {
 				if(document.querySelector('#navigation-direction').checked) {

@@ -1,6 +1,6 @@
 {
-  "name": "Morgana",
-  "short_name": "Morgana",
+  "name": "My App",
+  "short_name": "My App",
   "start_url": "/?homescreen=1",
   "display": "standalone",
   "theme_color": "#3f51b5",

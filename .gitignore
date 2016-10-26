@@ -1,2 +1,6 @@
 bower_components
 __pycache__
+build
+*.pem
+*.key
+*.crt
