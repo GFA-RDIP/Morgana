@@ -1,0 +1,6 @@
+0.0.0.0:8443
+root frontend
+proxy /api localhost:5000
+tls self_signed
+startup echo starting python REST API
+startup python backend/backend.py ./data &
