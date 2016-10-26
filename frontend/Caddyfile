@@ -1,4 +1,0 @@
-0.0.0.0:443
-root build/unbundled
-proxy /api localhost:5000
-tls cert.crt cert.key
