@@ -70,11 +70,9 @@ If using the anaconda/miniconda python distribution, use the provided environmen
   npm install -g bower
 ```
 
-## Deployment
+## Deployment (on UNIX like platforms)
 ```bash
-  bower install
-  nohup python -m http.server <optional-port-number> > static.log &
-  nohup python backend.py > backend.log & # runs on port 5000, currently hardcoded
+./run.sh
 ```
 
 ## Licenses
