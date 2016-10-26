@@ -3,7 +3,6 @@
 <link rel="import" href="morgana-shared-behaviours.html" />
 <link rel="import" href="morgana-filter-picker.html" />
 <link rel="import" href="../bower_components/paper-chip/paper-chip.html" />
-<script src="../bower_components/d3/d3.min.js"></script>
 
 <dom-module id="morgana-sunburst">
   <template>
@@ -94,7 +93,7 @@
     </style>
     <div class="container">
       <div>
-        <div>
+        <div style="flex:1">
           <div id="sequence">
           </div>
           <div class="sunburst-container">
@@ -117,6 +116,9 @@
   <script>
     Polymer({
       is: 'morgana-sunburst',
+      behaviours: [
+        Morgana
+      ],
       attached: function() {
         Morgana.sunburst.generate()
       }

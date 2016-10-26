@@ -9,6 +9,7 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
@@ -25,9 +26,9 @@
         display: block;
       }
     </style>
-    <style is="custom-style" include="zeitgeist-shared-styles iron-flex iron-flex-alignment">
+    <style is="custom-style" include="morgana-shared-styles iron-flex iron-flex-alignment">
       :host {
-        --app-primary-color: #202020;
+        --app-primary-color: #3f51b5;
     		--app-secondary-color: #757575;
     		--app-accent-color: #172C50;
         --paper-tabs-selection-bar-color: var(--app-accent-color);
@@ -36,8 +37,11 @@
     			color: var(--app-secondary-color);
     		}
     		--paper-tab {
-    			color: red;
     		}
+        app-header {
+          background-color: var(--app-primary-color);
+          color:#fff;
+        }
 
         paper-tab[link] a {
           /* These mixins (from iron-flex-layout) center the link text. */
@@ -47,27 +51,28 @@
           text-decoration: none;
           padding-left:10px;
           padding-right:10px;
-          color: var(--app-secondary-color);
         }
-    		.drawer-list {
-    		  margin: 0 20px;
-    		}
+        .drawer-list {
+          margin: 0 20px;
+        }
 
-    		.drawer-list a {
-          @apply(--layout-horizontal);
-          /*@apply(--layout-center-center);*/
-          color: inherit;
+        .drawer-list a {
+          display: block;
+
+          padding: 0 16px;
+
           text-decoration: none;
-          padding-left:10px;
-          padding-right:10px;
-          /*line-height: 40px;*/
-          color: var(--app-secondary-color);
-    		}
 
-    		.drawer-list a.iron-selected {
-    		  color: black;
-    		  font-weight: bold;
-    		}
+          color: var(--app-secondary-color);
+
+          line-height: 40px;
+        }
+
+        .drawer-list a.iron-selected {
+          color: black;
+
+          font-weight: bold;
+        }
 
         .content {
           @apply(--layout-flex);
@@ -94,19 +99,21 @@
     <iron-media-query query="max-width: 767px" query-matches="{{smallScreen}}"></iron-media-query>
     <app-drawer-layout fullbleed force-narrow>
         <app-drawer>
-            <iron-selector role="navigation" class="drawer-list" selected="about">
+            <app-toolbar>
+              Menu
+            </app-toolbar>
+            <iron-selector role="navigation" class="drawer-list" role="navigation">
                 <template is="dom-repeat" items="{{menuItems}}">
                     <a href="#/{{item.href}}">{{item.text}}</a>
                 </template>
             </iron-selector>
         </app-drawer>
-        <app-header-layout>
-            <app-header>
+        <app-header-layout has-scrolling-region>
+            <app-header condenses reveals effects="waterfall">
                 <app-toolbar>
 
                     <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
                     <div main-title>Morgana</div>
-                      <paperToast></paperToast>
                     <template is="dom-if" if="[[!smallScreen]]">
                     <paper-tabs>
                         <template is="dom-repeat" items="{{menuItems}}">
@@ -124,7 +131,8 @@
             <div class="content">
               <iron-pages selected="{{routeData.view}}"
               attr-for-selected="name"
-              fallback-selection="404">
+              fallback-selection="404"
+              role="main">
                 <morgana-sunburst name="sunburst">
                 </morgana-sunburst>
                 <morgana-network name="network">
