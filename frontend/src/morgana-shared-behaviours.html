@@ -343,10 +343,12 @@
         }
       },
 			navigate: function(d) {
-				if(document.querySelector('#navigation-direction').checked) {
-					Morgana.sunburst.fetchNetwork(d);
-				} else {
+				nav_choice = document.querySelector('#navigation-direction').checked;
+				if(nav_choice) {
 					Morgana.grid.displayFromSunburst(Morgana.sunburst.getAncestors(d));
+				} else {
+					console.log("Fetching related network");
+					Morgana.sunburst.fetchNetwork(d);
 				}
 			}
     },
