@@ -60,21 +60,19 @@ Fata Morgana is an unusual and complex form of mirage where an object is signifi
 ## Installation
 In most cases, pip install is sufficient:
 ```bash
-  pip install -r requirements.txt
+  pip install -r backend/requirements.txt
   npm install -g bower
 ```
 If using the anaconda/miniconda python distribution, use the provided environment.yml to setup an isolated environment containing the required dependencies:
 ```bash
-  conda env create -f morgana-env.yml
+  conda env create -f backend/morgana-env.yml
   source activate morgana-py3
   npm install -g bower
 ```
 
-## Deployment
+## Deployment (on UNIX like platforms)
 ```bash
-  bower install
-  nohup python -m http.server <optional-port-number> > static.log &
-  nohup python backend.py > backend.log & # runs on port 5000, currently hardcoded
+./run.sh
 ```
 
 ## Licenses
