@@ -5,11 +5,6 @@ import csv
 from collections import defaultdict
 app = Flask(__name__)
 
-# To run locally (cross site scripting hack)
-from flask_cors import CORS
-cors = CORS(app)
-
-
 data = read_data('../data/HealthHack2016_Morgana_Data_permuted.csv')
 
 # Variable, name
