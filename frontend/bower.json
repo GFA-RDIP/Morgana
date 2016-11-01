@@ -24,7 +24,16 @@
     "randomcolor": "randomColor#^0.4.4",
     "d3": "3.5.17",
     "paper-toggle-button": "^1.2.1",
-    "paper-chip": "^1.1.1"
+    "paper-chip": "^1.1.1",
+    "paper-button": "^1.0.14",
+    "paper-input": "^1.1.20",
+    "paper-listbox": "^1.1.2",
+    "paper-item": "^1.2.1",
+    "paper-dropdown-menu": "^1.4.1",
+    "iron-list": "^1.3.12",
+    "paper-card": "PolymerElements/paper-card#^1.1.4",
+    "paper-autocomplete": "^1.3.0",
+    "paper-tabs": "^1.7.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0",

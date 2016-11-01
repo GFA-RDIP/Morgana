@@ -1,21 +1,114 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-chip/paper-chip.html">
+<link rel="import" href="../bower_components/paper-autocomplete/paper-autocomplete.html">
+<link rel="import" href="../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <dom-module id="morgana-filter-picker">
   <template>
     <style>
       :host {
-        display: block;
+        padding-top:10px;
+        display: flex;
         flex:1;
-        /*background:skyblue;*/
         height:100%;
+        position:relative;
+        flex-direction:column;
+      }
+      iron-list {
+        min-height:300px;
+      }
+      paper-card {
+        max-height:150px;
+        max-width:300px;
+      }
+      paper-autocomplete {
+        max-width:300px;
       }
     </style>
+    <iron-list items="[[_computeFilteredVariables(variables)]]" as="filter">
+      <template>
+        <paper-card>
+          <div class="card-content">
+            <div class="horizontal layout justified">
+              <h2>Variable: [[filter.name]]</h2>
+              <paper-icon-button icon="close"
+                on-tap="removeFilter"
+                name$="[[filter.name]]"></paper-icon-button>
+            </div>
 
+            <paper-tabs selected="{{filter.filterVal}}" attr-for-selected="val">
+              <template is="dom-repeat" items="[[filter.values]]">
+                <paper-tab val="[[item]]">[[item]]</paper-tab>
+              </template>
+            </paper-tabs>
+          </div>
+        </paper-card>
+      </template>
+    </iron-list>
+    <paper-autocomplete label="variable name" source="[[_computeAvailableVariables(variables)]]"
+      text-property="name" value-property="name"
+      on-autocomplete-selected="addFilter"
+      ></paper-autocomplete>
   </template>
   <script>
     Polymer({
       is: 'morgana-filter-picker',
-
+      properties: {
+        variables: {
+          notify: true,
+          value: function() {
+            return [
+              {name: 'dog', values: [false, true], filterIdx: 1, filterVal: true},
+              {name: 'gender', values: ['M', 'F'], filterIdx: 0, filterVal: 'F'},
+              {name: 'gene1', values: [true, false]},
+              {name: 'foo', values: [1,2,3]}
+            ]
+          }
+        },
+        filterCount: {
+          type: Number,
+          value: function() {
+            return 2;
+          }
+        }
+      },
+      removeFilter: function(e) {
+        this.variables = this.variables.map(function(variable) {
+          if(variable.name == e.srcElement.closest('paper-icon-button').getAttribute('name')) {
+            delete variable.filterIdx;
+            delete variable.filterVal;
+          }
+          return variable;
+        }.bind(this))
+        this.dispatchEvent(new CustomEvent('filters-changed', {bubbles: true}))
+      },
+      addFilter: function(e) {
+        var varName = e.detail.value;
+        var varIdx = this.variables.map((variable) => { return variable.name }).indexOf(varName);
+        this.variables = this.variables.map(function(variable) {
+          if(variable.name == varName) {
+            variable.filterIdx = this.filterCount;
+            variable.filterVal = variable.values[0];
+            this.filterCount += 1;
+          }
+          return variable;
+        }.bind(this))
+        this.dispatchEvent(new CustomEvent('filters-changed', {bubbles: true}))
+      },
+      _computeAvailableVariables: function() {
+        return this.variables.filter((variable) => {
+          return variable.filterIdx == undefined
+        })
+      },
+      _computeFilteredVariables: function() {
+        return this.variables.filter((variable) => {
+            return variable.filterIdx != undefined
+        })
+      }
     });
   </script>
 </dom-module>

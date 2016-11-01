@@ -20,6 +20,7 @@
         flex-direction:row;
         height:100%;
         width:100%;
+        flex-wrap: wrap;
       }
       .menu {
         display:flex;
@@ -105,7 +106,7 @@
             <paper-toggle-button id="navigation-direction">Export as csv by default</paper-toggle-button>
           </div>
         </div>
-      <morgana-filter-picker>
+      <morgana-filter-picker variables="{{variables}}">
       </morgana-filter-picker>
 
       </div>
@@ -119,6 +120,12 @@
       behaviours: [
         Morgana
       ],
+      observers: {
+        'filters-changed': 'generateSunburst'
+      },
+      generateSunburst: function() {
+
+      },
       attached: function() {
         Morgana.sunburst.generate()
       }
