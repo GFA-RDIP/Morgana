@@ -2,51 +2,23 @@
 
 A data visualization tool to inspect complex datasets.
 
-## Problem Owners
-
-Dr. David Martino ([ResearchGate][8], [LinkedIn][9])
-
-Dr. Jennifer Koplin ([ResearchGate][10], [LinkedIn][11])
-
-Mr. Simon Christopher Cropper ([ResearchGate][12], [LinkedIn][13])
-
 ## Project Team
 
-Edward Ross (back end, presentor, data wrangler)
+Simon Christopher Cropper (project coordinator, design) ([ResearchGate][12], [LinkedIn][13])
 
-Nicholas Roberts (front end, graphics, network analysis, project design)
+Edward Ross (back end, data wrangler)
+
+Nicholas Roberts (front end, graphics, network analysis, design)
 
 Tung van Truong (UX design, marketing, presentation) ([LinkedIn][17])
 
-Thanks for the assistance provided by Jarny Choi ([ResearchGate][14]) on initial analysis of the data and input into alternative design concepts. His iPython notebooks are included in the project directory.
+Jarny Choi (design, analysis) ([ResearchGate][14])
 
-Thanks also to Jagdish Sawlani ([LinkedIn][15], [Twitter][16]) for early input into the preperation of the data for analysis.
+## Project origins and mission statement
 
-## HealthHack Melbourne 2016 Project Brief
+Morgana is a program designed to be an intuitive and interactive way to visualize relationships between different types of data. It was proposed as a problem worth consideration at the Open Knowledge event "HealthHack 2016 (Melbourne)" by the Gastro & Food Allergy Group of Murdoch Childrens Research Institute. A team was formed at that event and the team that created the initial prototype won first prize.
 
-Researchers working in clinical studies collect a lot of patient samples, laboratory and clinical data, and these are often collected independently of each other.
-
-A major challenge is to easily see what data we have on whom. For example, we might have genetic data on 15% of our cohort, epigenetic measures on 35%, we will have collected flow cytometry data on 60% and serology on 100% of the cohort.
-
-How can we aim to curb life-threatening diseases when the laboratory data we collect is not even remotely connected to clinical outcomes, and specimen data?
-
-How can data stored in different incompatible systems be of any use to solving a research question?
-
-There’s a severe need for an intuitive and interactive way to visualize relationships between different types of data collected in clinical studies.
-
-We need to be able to examine this data in a myriad of scales and contexts, from a bird's eye view through to specific subgroups containing a half dozen specimens can inform this critical stage of research.
-
-This project from the Murdoch Childrens Research Institute will utilize sample data from one of the worlds leading cohorts of paediatric food allergy, to develop a flexible, intuitive, visual solution to research data management.
-
-Ideally, the solution would consist of an easily queried database (preferably SQL-based), providing data to a web frontend. Several excellent libraries exist for this purpose (e.g. [d3.js][5], [plot.ly][4]), though as is to be expected, the devil is in the details - gluing the various components together into a cohesive, user-friendly whole is the real challenge for this project.
-
-If you think you can help us develop this tool, you’ll be working on a project that will make research teams more effective in combating life-threatening disease.
-
-## Project development
-
-Opportunities are being investigated on how to take a segment of the cohort data and represent relationships in the dataset for the selected participants in a natural and interactive way.
-
-The initial cohort segment is selected using a dynamic sunburst diagram, which feeds a subset of the original matrix to either a table or network diagram that visually presents abundance and relationships between major attributes known about the participants. The tabulated view will provide the ability to export the list of selected participants, the filter field values and the values identified as being significant by the network analysis.
+The basic premise of Morgana is that complex data can be difficult to visualise, and there is a need for a tool to intuitively and interactively visualse groups within a larger dataset and quickly ascertain relationships between different types of data in that group. The tool is not considered to be a analysis package but rather a tool for exploring or interagating the data.
 
 ## Etymology of name
 
