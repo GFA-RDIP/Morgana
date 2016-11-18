@@ -16,7 +16,12 @@
         flex:1;
         height:100%;
         position:relative;
-        flex-direction:column;
+        flex-direction:row;
+        flex-wrap:wrap;
+      }
+      :host > * {
+        padding:5px;
+        min-width:200px;
       }
       iron-list {
         min-height:300px;
@@ -24,35 +29,61 @@
       paper-card {
         max-height:150px;
         max-width:300px;
+        min-width:200px;
       }
       paper-autocomplete {
         max-width:300px;
       }
     </style>
-    <iron-list items="[[_computeFilteredVariables(variables)]]" as="filter">
-      <template>
-        <paper-card>
-          <div class="card-content">
-            <div class="horizontal layout justified">
-              <h2>Variable: [[filter.name]]</h2>
-              <paper-icon-button icon="close"
-                on-tap="removeFilter"
-                name$="[[filter.name]]"></paper-icon-button>
+    <div>
+      <h2>View variables</h2>
+      <iron-list items="[[_computeViewFilterVariables(variables)]]" as="variable">
+        <template>
+          <paper-card>
+            <div class="card-content">
+              <div class="horizontal layout justified">
+                <h2>[[variable.name]]</h2>
+                <paper-icon-button icon="close"
+                  on-tap="removeViewFilter"
+                  name$="[[variable.name]]"></paper-icon-button>
+              </div>
             </div>
+          </paper-card>
+        </template>
+      </iron-list>
+      <paper-autocomplete label="variable name"
+        source="[[_computeAvailableViewVariables(variables)]]"
+        text-property="name" value-property="name"
+        on-autocomplete-selected="addViewFilter"
+        ></paper-autocomplete>
+    </div>
+    <div>
+      <h2>Data filters</h2>
+      <iron-list items="[[_computeFilteredVariables(variables)]]" as="filter">
+        <template>
+          <paper-card>
+            <div class="card-content">
+              <div class="horizontal layout justified">
+                <h2>[[filter.name]]</h2>
+                <paper-icon-button icon="close"
+                  on-tap="removeFilter"
+                  name$="[[filter.name]]"></paper-icon-button>
+              </div>
+              <paper-tabs selected="{{filter.filterVal}}" attr-for-selected="val">
+                <template is="dom-repeat" items="[[filter.values]]">
+                  <paper-tab val="[[item]]">[[item]]</paper-tab>
+                </template>
+              </paper-tabs>
+            </div>
+          </paper-card>
+        </template>
+      </iron-list>
+      <paper-autocomplete label="variable name" source="[[_computeAvailableVariables(variables)]]"
+        text-property="name" value-property="name"
+        on-autocomplete-selected="addFilter"
+        ></paper-autocomplete>
+    </div>
 
-            <paper-tabs selected="{{filter.filterVal}}" attr-for-selected="val">
-              <template is="dom-repeat" items="[[filter.values]]">
-                <paper-tab val="[[item]]">[[item]]</paper-tab>
-              </template>
-            </paper-tabs>
-          </div>
-        </paper-card>
-      </template>
-    </iron-list>
-    <paper-autocomplete label="variable name" source="[[_computeAvailableVariables(variables)]]"
-      text-property="name" value-property="name"
-      on-autocomplete-selected="addFilter"
-      ></paper-autocomplete>
   </template>
   <script>
     Polymer({
@@ -62,9 +93,9 @@
           notify: true,
           value: function() {
             return [
-              {name: 'dog', values: [false, true], filterIdx: 1, filterVal: true},
-              {name: 'gender', values: ['M', 'F'], filterIdx: 0, filterVal: 'F'},
-              {name: 'gene1', values: [true, false]},
+              {name: 'dog', values: [false, true], viewFilterIdx: 0, filterIdx: 1, filterVal: true},
+              {name: 'gender', values: ['M', 'F'], viewFilterIdx: 1, filterIdx: 0, filterVal: 'F'},
+              {name: 'gene1', viewFilterIdx: 2, values: [true, false]},
               {name: 'foo', values: [1,2,3]}
             ]
           }
@@ -74,6 +105,10 @@
           value: function() {
             return 2;
           }
+        },
+        viewFilterCount: {
+          type: Number,
+          value: _ => 3
         }
       },
       removeFilter: function(e) {
@@ -86,6 +121,15 @@
         }.bind(this))
         this.dispatchEvent(new CustomEvent('filters-changed', {bubbles: true}))
       },
+      removeViewFilter(e) {
+        this.variables = this.variables.map(function(variable) {
+          if(variable.name == e.srcElement.closest('paper-icon-button').getAttribute('name')) {
+            delete variable.viewFilterIdx;
+          }
+          return variable;
+        }.bind(this))
+        this.dispatchEvent(new CustomEvent('view-filters-changed', {bubbles: true}))
+      },
       addFilter: function(e) {
         var varName = e.detail.value;
         var varIdx = this.variables.map((variable) => { return variable.name }).indexOf(varName);
@@ -97,16 +141,40 @@
           }
           return variable;
         }.bind(this))
+        e.target.clear();
         this.dispatchEvent(new CustomEvent('filters-changed', {bubbles: true}))
+      },
+      addViewFilter(e) {
+        var varName = e.detail.value;
+        var varIdx = this.variables.map((variable) => { return variable.name }).indexOf(varName);
+        this.variables = this.variables.map(function(variable) {
+          if(variable.name == varName) {
+            variable.viewFilterIdx = this.filterCount;
+            this.viewFilterCount += 1;
+          }
+          return variable;
+        }.bind(this))
+        e.target.clear();
+        this.dispatchEvent(new CustomEvent('view-filters-changed', {bubbles: true}))
       },
       _computeAvailableVariables: function() {
         return this.variables.filter((variable) => {
           return variable.filterIdx == undefined
         })
       },
+      _computeAvailableViewVariables() {
+        return this.variables.filter((variable) => {
+          return variable.viewFilterIdx == undefined
+        })
+      },
       _computeFilteredVariables: function() {
         return this.variables.filter((variable) => {
             return variable.filterIdx != undefined
+        })
+      },
+      _computeViewFilterVariables: function() {
+        return this.variables.filter((variable) => {
+            return variable.viewFilterIdx != undefined
         })
       }
     });
