@@ -55,25 +55,37 @@ Named after the Arthurian sorceress Morgan le Fay, Fata Morgana or Morgana. Morg
 Fata Morgana is an unusual and complex form of mirage where an object is significantly distorted and rapidly changes. The mirage can comprise of several inverted (upside down) and erect (right side up) that are stacked on top of one another. Fata Morgana are caused by rays of light being bent when passing through air layers of different temperatures in a steep thermal inversion where an atmospheric duct has formed.
 [Wikipedia 2016 - Fata Morgana (mirage)][1]
 
-> <span style="color:darkorange">The analogy here is that Morgana the software will rapidly reformat and present complex almost indecyperable datasets in novel and informative ways so casual researchers are attracted to investigate further. </span>
+> The analogy here is that Morgana the software will rapidly reformat and present complex almost indecyperable datasets in novel and informative ways so casual researchers are attracted to investigate further.
+
+## Operating System
+
+Morgana currently only operates under Linux.
+
+## Prerequisites
+
+Python 3
+npm
 
 ## Installation
+
 In most cases, pip install is sufficient:
-```bash
-  pip install -r backend/requirements.txt
-  npm install -g bower
-```
+  
+	bash
+	pip install -r backend/requirements.txt
+	npm install -g bower
+
 If using the anaconda/miniconda python distribution, use the provided environment.yml to setup an isolated environment containing the required dependencies:
-```bash
-  conda env create -f backend/morgana-env.yml
-  source activate morgana-py3
-  npm install -g bower
-```
+	
+	bash
+	conda env create -f backend/morgana-env.yml
+	source activate morgana-py3
+	npm install -g bower
+
 
 ## Deployment (on UNIX like platforms)
-```bash
-./run.sh
-```
+	
+	bash
+	./run.sh
 
 ## Licenses
 
