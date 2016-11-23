@@ -24,7 +24,7 @@
         min-width:200px;
       }
       iron-list {
-        min-height:300px;
+        /*min-height:300px;*/
       }
       paper-card {
         max-height:150px;
@@ -33,11 +33,12 @@
       }
       paper-autocomplete {
         max-width:300px;
+        color:black;
       }
     </style>
     <div>
       <h2>View variables</h2>
-      <iron-list items="[[_computeViewFilterVariables(variables)]]" as="variable">
+      <iron-list items="[[filteredViewVariables]]" as="variable">
         <template>
           <paper-card>
             <div class="card-content">
@@ -52,14 +53,14 @@
         </template>
       </iron-list>
       <paper-autocomplete label="variable name"
-        source="[[_computeAvailableViewVariables(variables)]]"
+        source="[[availableViewVariables]]"
         text-property="name" value-property="name"
         on-autocomplete-selected="addViewFilter"
         ></paper-autocomplete>
     </div>
     <div>
       <h2>Data filters</h2>
-      <iron-list items="[[_computeFilteredVariables(variables)]]" as="filter">
+      <iron-list items="[[filteredVariables]]" as="filter">
         <template>
           <paper-card>
             <div class="card-content">
@@ -69,19 +70,22 @@
                   on-tap="removeFilter"
                   name$="[[filter.name]]"></paper-icon-button>
               </div>
-              <paper-tabs selected="{{filter.filterVal}}" attr-for-selected="val">
-                <template is="dom-repeat" items="[[filter.values]]">
-                  <paper-tab val="[[item]]">[[item]]</paper-tab>
+              <paper-tabs
+                selected="{{filter.filterVal}}"
+                attr-for-selected="val">
+                <template is="dom-repeat" items="[[_toArray(filter.values)]]">
+                  <paper-tab val="[[item.name]]">[[item.value]]</paper-tab>
                 </template>
               </paper-tabs>
             </div>
           </paper-card>
         </template>
       </iron-list>
-      <paper-autocomplete label="variable name" source="[[_computeAvailableVariables(variables)]]"
+      <paper-autocomplete label="variable name"
+        source="[[availableVariables]]"
         text-property="name" value-property="name"
-        on-autocomplete-selected="addFilter"
-        ></paper-autocomplete>
+        on-autocomplete-selected="addFilter">
+      </paper-autocomplete>
     </div>
 
   </template>
@@ -93,10 +97,10 @@
           notify: true,
           value: function() {
             return [
-              {name: 'dog', values: [false, true], viewFilterIdx: 0, filterIdx: 1, filterVal: true},
-              {name: 'gender', values: ['M', 'F'], viewFilterIdx: 1, filterIdx: 0, filterVal: 'F'},
-              {name: 'gene1', viewFilterIdx: 2, values: [true, false]},
-              {name: 'foo', values: [1,2,3]}
+              {name: 'dog', values: { false: "r1", true: "r2" }, viewFilterIdx: 0, filterIdx: 1, filterVal: true},
+              {name: 'gender', values: {0: 'M', 1.0: 'F'}, viewFilterIdx: 1, filterIdx: 0, filterVal: 'F'},
+              {name: 'gene1', viewFilterIdx: 2, values: {false: "not present", true: 'present'}},
+              {name: 'foo', values: {1: 1, 2: 2, 3: 3}}
             ]
           }
         },
@@ -109,8 +113,43 @@
         viewFilterCount: {
           type: Number,
           value: _ => 3
+        },
+
+        availableVariables: {
+          type: Array,
+          notify: true,
+          reflectAsAttribute: true,
+          computed: '_computeAvailableVariables(variables)'
+        },
+        availableViewVariables: {
+          type: Array,
+          notify: true,
+          reflectAsAttribute: true,
+          computed: '_computeAvailableViewVariables(variables)'
+        },
+        filteredVariables: {
+          type: Array,
+          notify: true,
+          reflectAsAttribute: true,
+          computed: '_computeFilteredVariables(variables)'
+        },
+        filteredViewVariables: {
+          type: Array,
+          notify: true,
+          reflectAsAttribute: true,
+          computed: '_computeFilteredViewVariables(variables)'
         }
       },
+
+      _toArray(valuePairs) {
+        return Object.keys(valuePairs).map(function(key) {
+            return {
+                name: key,
+                value: valuePairs[key]
+            };
+        });
+      },
+
       removeFilter: function(e) {
         this.variables = this.variables.map(function(variable) {
           if(variable.name == e.srcElement.closest('paper-icon-button').getAttribute('name')) {
@@ -128,7 +167,7 @@
           }
           return variable;
         }.bind(this))
-        this.dispatchEvent(new CustomEvent('view-filters-changed', {bubbles: true}))
+        this.dispatchEvent(new CustomEvent('filters-changed', {bubbles: true}))
       },
       addFilter: function(e) {
         var varName = e.detail.value;
@@ -136,7 +175,7 @@
         this.variables = this.variables.map(function(variable) {
           if(variable.name == varName) {
             variable.filterIdx = this.filterCount;
-            variable.filterVal = variable.values[0];
+            variable.filterVal = Object.keys(variable.values)[0];
             this.filterCount += 1;
           }
           return variable;
@@ -155,9 +194,9 @@
           return variable;
         }.bind(this))
         e.target.clear();
-        this.dispatchEvent(new CustomEvent('view-filters-changed', {bubbles: true}))
+        this.dispatchEvent(new CustomEvent('filters-changed', {bubbles: true}))
       },
-      _computeAvailableVariables: function() {
+      _computeAvailableVariables() {
         return this.variables.filter((variable) => {
           return variable.filterIdx == undefined
         })
@@ -172,7 +211,7 @@
             return variable.filterIdx != undefined
         })
       },
-      _computeViewFilterVariables: function() {
+      _computeFilteredViewVariables: function() {
         return this.variables.filter((variable) => {
             return variable.viewFilterIdx != undefined
         })

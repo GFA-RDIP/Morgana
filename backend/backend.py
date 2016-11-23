@@ -39,6 +39,9 @@ def main():
         var_attr_name[variable][attribute] = name
     var_attr_name = dict(var_attr_name)
 
+    var_attr_dict_array = list(map(
+        lambda x: {"name": x, "values": var_attr_name[x]}, var_attr_name))
+
 
     # Filter down to the good columns
     cols = filter_categorical_cols(data)
@@ -82,12 +85,14 @@ def main():
     @app.route("/api/sunburst")
     def sunburst(cols=cols):
         limit = request.args.get('limit') or 5
-        exclude = request.args.get('exclude')
-        if exclude:
-            cols = [col for col in cols if col not in exclude]
-        if limit:
-            limit = int(limit)
-            cols = cols[:limit]
+        include = request.args.get('include')
+        constraints = request.args.get('constraints')
+        limit = int(limit)
+        reserved_cols = []
+        if include:
+            reserved_cols = [col for col in cols if col in include]
+            cols = [col for col in cols if col not in include]
+        cols = reserved_cols + cols[:limit-len(reserved_cols)]
         if tuple(cols) not in sun_memo:
             sun_memo[tuple(cols)] = data_tree(data, cols, var_attr_name)
             with open(os.path.join(data_dir,'sun.dat'), 'wb') as f:
@@ -95,6 +100,9 @@ def main():
         j = sun_memo[tuple(cols)]
         return jsonify(j)
 
+    @app.route("/api/variables")
+    def variables():
+        return jsonify(var_attr_dict_array)
 
     @app.route("/api/patient", methods=['GET', 'POST'])
     def patient():

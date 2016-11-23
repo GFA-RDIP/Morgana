@@ -1,24 +1,20 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
-<link rel="import" href="morgana-sunburst.html" />
-<link rel="import" href="morgana-network.html" />
-<link rel="import" href="morgana-view404.html" />
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+
 <dom-module id="morgana-app">
   <template>
     <style>
@@ -137,7 +133,8 @@
                 </morgana-sunburst>
                 <morgana-network name="network">
                 </morgana-network>
-                <morgana-view404 name="404"></morgana-view404>
+                <morgana-view404 name="404">
+                </morgana-view404>
                 <morgana-grid name="grid">
                 </morgana-grid>
               </iron-pages>
@@ -158,12 +155,37 @@
               {"text": "Network", href: "network"}
             ]
           }
-        }
+        },
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChanged'
+        },
       },
+
       listeners: {
-        'morgana-fetch-network': 'fetchNetwork',
+        'd3-data-selected': 'fetchNetwork',
         'morgana-fetch-patient-grid': 'fetchPatientGrid'
       },
+
+      observers: [
+        '_routePageChanged(routeData.page)'
+      ],
+
+      _routePageChanged: function(page) {
+        this.page = page || 'sunburst';
+      },
+
+      _pageChanged: function(page) {
+        // Load page import on demand. Show 404 page if fails
+        var resolvedPageUrl = this.resolveUrl('morgana-' + page + '.html');
+        this.importHref(resolvedPageUrl, null, this._showPage404, true);
+      },
+
+      _showPage404: function() {
+        this.page = 'view404';
+      },
+
       fetchPatientGrid: function(e) {
         console.log(e);
         console.log(e.detail)
@@ -181,8 +203,7 @@
       fetchNetwork: function(e) {
         console.log(e)
         var variables = e.detail.ancestors;
-        fetch('/api/network')
-        .then(resp => resp.json())
+        fetch('/api/network').then(resp => resp.json())
         .then(function(network) {
           Morgana.network.display.bind(this.$$('morgana-network'))(network)
         }.bind(this))

@@ -1,13 +1,16 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html" />
-<link rel="import" href="morgana-shared-behaviours.html" />
-<link rel="import" href="morgana-filter-picker.html" />
 <link rel="import" href="../bower_components/paper-chip/paper-chip.html" />
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html" />
+<link rel="import" href="morgana-shared-behaviours.html" />
+<link rel="import" href="../bower_components/d3-sunburst/d3-sunburst.html" />
+<script src="../bower_components/underscore/underscore-min.js"></script>
+<link async rel="import" href="morgana-filter-picker.html" />
 
 <dom-module id="morgana-sunburst">
   <template>
     <style>
-      .container {
+      .s-container {
         height: calc(100vh - 64px);
         width: 100%;
         background:#eee;
@@ -15,7 +18,7 @@
         display:flex;
         flex-direction:row;
       }
-      .container > div {
+      .s-container > div {
         display:flex;
         flex-direction:row;
         height:100%;
@@ -53,28 +56,6 @@
         width: 100px;
       }
 
-      #sequence {
-        width: 600px;
-        height: 70px;
-      }
-
-      #legend {
-        padding: 10px 0 0 3px;
-      }
-
-      #sequence text, #legend text {
-        font-weight: 600;
-        fill: #fff;
-      }
-
-      #chart {
-        position: relative;
-      }
-
-      #chart path {
-        stroke: #fff;
-      }
-
       #explanation {
         position: absolute;
         /*top:40%;*/
@@ -92,23 +73,32 @@
       }
 
     </style>
-    <div class="container">
+    <iron-ajax auto
+      url="/api/variables"
+      last-response="{{variables}}"
+      handle-as="json">
+    </iron-ajax>
+    <iron-ajax auto
+      url="/api/sunburst?[[queryString]]"
+      handle-as="json"
+      params="[[queryParams]]"
+      last-response="{{data}}">
+    </iron-ajax>
+    <div class="s-container">
       <div>
         <div style="flex:1">
-          <div id="sequence">
-          </div>
-          <div class="sunburst-container">
-            <div id="explanation">
-              <span id="percentage"></span>
-            </div>
-          </div>
+          <d3-sunburst width="600" height="600" data="[[data]]"></d3-sunburst>
           <div class="menu">
-            <paper-toggle-button id="navigation-direction">Export as csv by default</paper-toggle-button>
+            <paper-toggle-button id="navigation-direction">
+              Export as csv by default
+            </paper-toggle-button>
           </div>
         </div>
-      <morgana-filter-picker variables="{{variables}}">
+      <morgana-filter-picker
+        variables="{{variables}}"
+        filtered-view-variables="{{viewConstraints}}"
+        filtered-variables="{{dataConstraints}}">
       </morgana-filter-picker>
-
       </div>
     </div>
 
@@ -117,17 +107,33 @@
   <script>
     Polymer({
       is: 'morgana-sunburst',
+
+      properties: {
+        queryParams: {
+          type: String,
+          computed: '_computeQueryParams(viewConstraints, dataConstraints)'
+        }
+      },
+
       behaviours: [
         Morgana
       ],
-      observers: {
-        'filters-changed': 'generateSunburst'
-      },
-      generateSunburst: function() {
 
+      _computeQueryParams(viewConstraints, dataConstraints) {
+        viewVars = viewConstraints.map((constraint) => {
+          return constraint.name;
+        });
+        constraints = dataConstraints.map((constraint) => {
+          return _.pick(constraint, 'name', 'filterVal')
+        });
+        console.log({include: viewVars, constraints: constraints});
+        return {include: viewVars, constraints: constraints}
       },
+
+      regenerateSunburst: function() {
+      },
+
       attached: function() {
-        Morgana.sunburst.generate()
       }
     });
   </script>
