@@ -4,4 +4,8 @@ build
 *.pem
 *.key
 *.crt
+*.log
+*.pyc
+*.db
 node_modules
+
