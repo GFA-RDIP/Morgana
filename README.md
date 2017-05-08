@@ -22,7 +22,7 @@ The basic premise of Morgana is that complex data can be difficult to visualise,
 
 Here is a short demo of the program created during HealthHack 2016 (Melbourne) showing pertinent features of the interface.
 
-<p style="text-align: center"><img src="/images/Morgana.gif" alt="Morgana Demo" width="500"></p>
+<img src="/images/Morgana.gif" alt="Morgana Demo" width="500">
 
 ## Etymology of name
 
