@@ -20,6 +20,10 @@ Morgana is a program designed to be an intuitive and interactive way to visualiz
 
 The basic premise of Morgana is that complex data can be difficult to visualise, and there is a need for a tool to intuitively and interactively visualse groups within a larger dataset and quickly ascertain relationships between different types of data in that group. The tool is not considered to be a analysis package but rather a tool for exploring or interagating the data.
 
+Here is a short demo of the program created during HealthHack 2016 (Melbourne) showing pertinent features of the interface.
+
+<p style="text-align: center"><img src="/images/Morgana.gif" alt="Morgana Demo" width="500"></p>
+
 ## Etymology of name
 
 Named after the Arthurian sorceress Morgan le Fay, Fata Morgana or Morgana. Morgana is believed to have conjured the images of distant land or floating castles often seen in the Straits of Messina to lure unsuspecting sailors to their death.
@@ -35,8 +39,8 @@ Morgana currently only operates under Linux.
 
 ## Prerequisites
 
-Python 3
-npm
+	Python 3
+	npm
 
 ## Installation
 
@@ -61,7 +65,7 @@ If using the anaconda/miniconda python distribution, use the provided environmen
 
 ## Licenses
 
-Software devloped under this project is being released under a [GNU General Public License, version 3 (GPL-3.0)][2] license.
+Software developed under this project is being released under a [GNU General Public License, version 3 (GPL-3.0)][2] license.
 
 Supportive documentation is released under a [Creative Commons Attribution 4.0 International (CC-BY)][3] license.
 
